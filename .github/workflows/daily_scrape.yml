@@ -2,9 +2,9 @@ name: Daily Car Scrape
 
 on:
   schedule:
-    # Runs at 04:00 AM UTC every day
+    # Runs at 04:00 UTC every day
     - cron: '0 4 * * *'
-  workflow_dispatch: # Allows you to click a button to run it manually
+  workflow_dispatch: # Allows manual run button
 
 permissions:
   contents: write
@@ -22,18 +22,18 @@ jobs:
         with:
           python-version: '3.9'
 
+      # THIS IS THE FIX: We install 'requests' specifically
       - name: Install dependencies
         run: |
-          pip install playwright
-          playwright install chromium
+          pip install requests
 
-      - name: Run Scraper
+      - name: Run CSV Translator
         run: python csv_translator.py
 
       - name: Commit and Push Feed
         run: |
           git config --global user.name "GitHub Actions Bot"
           git config --global user.email "actions@github.com"
-          git add feed.xml
-          git commit -m "Daily feed update" || exit 0
+          git add feed.xml || echo "No feed.xml found"
+          git commit -m "Daily feed update" || echo "No changes to commit"
           git push
