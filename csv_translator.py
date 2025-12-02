@@ -12,7 +12,7 @@ OUTPUT_FILE = "feed.xml"
 DEALER_NAME = "Albar Autos"
 DEALER_URL = "https://albarautos.co.uk"
 GOOGLE_CATEGORY_ID = "916" 
-STORE_CODE = "ALBAR_MAIN" 
+STORE_CODE = "Albar" 
 
 def clean_image_url(raw_url):
     """Replaces {resize} with w1920 and strips whitespace."""
