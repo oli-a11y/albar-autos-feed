@@ -1,161 +1,81 @@
-import re
 import json
-import time
-import urllib.parse
-from playwright.sync_api import sync_playwright
+import xml.etree.ElementTree as ET
+from xml.dom import minidom
 
 # Configuration
-SEARCH_URL = "https://albarautos.co.uk/car-search"
-OUTPUT_FILE = "google_vehicle_ads_feed.json"
+INPUT_FILE = "google_vehicle_ads_feed.json"
+OUTPUT_FILE = "feed.xml"
+DEALER_NAME = "Albar Autos"
+DEALER_URL = "https://albarautos.co.uk"
+# Official Google Taxonomy for Cars
+GOOGLE_CATEGORY = "Vehicles & Parts > Vehicles > Motor Vehicles > Cars, Trucks & Vans"
 
-def get_clean_text(element):
-    if not element: return ""
-    return element.inner_text().strip().replace("\n", " ")
+def generate_xml_feed():
+    try:
+        with open(INPUT_FILE, 'r') as f:
+            vehicles = json.load(f)
+        print(f"Loaded {len(vehicles)} vehicles from JSON.")
+    except FileNotFoundError:
+        print("Error: JSON file not found. Run scraper.py first!")
+        return
 
-def clean_image_url(raw_url):
-    """Decodes the URL and forces high-res."""
-    if not raw_url: return None
+    rss = ET.Element("rss", version="2.0")
+    rss.set("xmlns:g", "http://base.google.com/ns/1.0")
     
-    # 1. Decode Next.js wrapper
-    if "url=" in raw_url:
-        try:
-            parsed = urllib.parse.urlparse(raw_url)
-            query_params = urllib.parse.parse_qs(parsed.query)
-            if 'url' in query_params:
-                raw_url = query_params['url'][0]
-        except:
-            pass
-    
-    # 2. Fix Relative Paths
-    if raw_url.startswith("/"):
-        raw_url = "https://albarautos.co.uk" + raw_url
+    channel = ET.SubElement(rss, "channel")
+    ET.SubElement(channel, "title").text = DEALER_NAME
+    ET.SubElement(channel, "link").text = DEALER_URL
+    ET.SubElement(channel, "description").text = f"Vehicle Feed for {DEALER_NAME}"
 
-    # 3. Force High Resolution (1920px)
-    raw_url = raw_url.replace("%7Bresize%7D", "w1920").replace("{resize}", "w1920")
-    
-    return raw_url
-
-def run_scraper():
-    with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
-        context = browser.new_context(viewport={"width": 1920, "height": 1080})
-        page = context.new_page()
-
-        print(f"--- STEP 1: Collecting Vehicle Links ---")
-        page.goto(SEARCH_URL)
+    for car in vehicles:
+        item = ET.SubElement(channel, "item")
         
-        for _ in range(5):
-            page.mouse.wheel(0, 2000)
-            time.sleep(1)
-
-        try:
-            page.wait_for_selector("a[href*='/car-details/']", timeout=10000)
-            all_links = page.locator("a[href*='/car-details/']").all()
-        except:
-            all_links = []
+        ET.SubElement(item, "g:id").text = car.get("vin")
+        ET.SubElement(item, "g:title").text = car.get("title")
+        ET.SubElement(item, "g:description").text = car.get("description")
+        ET.SubElement(item, "g:link").text = car.get("link")
         
-        car_urls = set()
-        for link in all_links:
-            href = link.get_attribute("href")
-            if href:
-                clean_href = href.split('?')[0]
-                full_url = "https://albarautos.co.uk" + clean_href if clean_href.startswith("/") else clean_href
-                car_urls.add(full_url)
-        
-        print(f"Found {len(car_urls)} unique vehicles.")
-
-        inventory = []
-        
-        # --- STEP 2: Process Each Vehicle ---
-        for index, url in enumerate(car_urls):
-            print(f"Processing [{index+1}/{len(car_urls)}]: {url.split('/')[-1][:25]}...") 
+        if car.get("image_link"):
+            ET.SubElement(item, "g:image_link").text = car.get("image_link")
             
-            try:
-                page.goto(url)
-                # Wait for title - confirms page load
-                page.wait_for_selector("h1", timeout=5000)
-                
-                # --- STRATEGY: HARVEST META TAGS ---
-                final_images = []
-                seen_urls = set()
-                
-                # Find ALL meta tags with property="og:image"
-                # This solves the "Strict Mode Violation" by asking for .all()
-                meta_tags = page.locator('meta[property="og:image"]').all()
-                
-                for meta in meta_tags:
-                    raw_link = meta.get_attribute("content")
-                    clean_link = clean_image_url(raw_link)
-                    
-                    if clean_link and clean_link not in seen_urls:
-                        final_images.append(clean_link)
-                        seen_urls.add(clean_link)
+        add_imgs = car.get("additional_image_link", [])
+        if add_imgs:
+            ET.SubElement(item, "g:additional_image_link").text = ",".join(add_imgs)
 
-                # Limit to 10 images max
-                final_images = final_images[:10]
-                
-                main_image = final_images[0] if final_images else ""
-                additional_images = final_images[1:] if len(final_images) > 1 else []
-
-                # --- EXTRACT DATA ---
-                page_content = page.content()
-                vin_match = re.search(r'\b[A-HJ-NPR-Z0-9]{17}\b', page_content)
-                vin = vin_match.group(0) if vin_match else None
-                if not vin:
-                    print("   -> SKIP: No VIN found.")
-                    continue
-
-                title = get_clean_text(page.locator("h1").first)
-
-                price = "0"
-                candidates = page.locator("span.text-main.font-bold").all()
-                for span in candidates:
-                    text = span.inner_text()
-                    if "£" in text and "/month" not in text and "HP" not in text:
-                        clean_price = text.replace("£", "").replace(",", "").strip()
-                        if clean_price.isdigit() and int(clean_price) > 1000:
-                            price = clean_price
-                            break
-
-                body_text = page.inner_text("body")
-                mileage = "0"
-                match = re.search(r'(\d{1,3}(,\d{3})*)\s*(miles|Miles)', body_text)
-                if match: mileage = match.group(1).replace(",", "")
-
-                year = "2020"
-                match = re.search(r'\b(20\d{2}|19\d{2})\b', title)
-                if match: year = match.group(1)
-
-                car_object = {
-                    "offer_id": vin,
-                    "vin": vin,
-                    "title": title,
-                    "description": f"{title} - {year} - {mileage} miles.",
-                    "link": url,
-                    "image_link": main_image,
-                    "additional_image_link": additional_images,
-                    "price": f"{price} GBP",
-                    "brand": title.split(" ")[0],
-                    "condition": "used",
-                    "mileage": f"{mileage} miles",
-                    "year": year
-                }
-                
-                inventory.append(car_object)
-                
-                # DEBUG: Show count and unique ID
-                img_count = len(final_images)
-                first_id = final_images[0][-10:] if final_images else "None"
-                print(f"   -> OK. Captured {img_count} images (ID: ...{first_id})")
-
-            except Exception as e:
-                print(f"   -> Error: {e}")
-
-        with open(OUTPUT_FILE, 'w') as f:
-            json.dump(inventory, f, indent=2)
+        ET.SubElement(item, "g:price").text = car.get("price")
+        ET.SubElement(item, "g:condition").text = "used"
         
-        print(f"\nCOMPLETE. Saved {len(inventory)} vehicles.")
-        browser.close()
+        # --- NEW & FIXED FIELDS ---
+        
+        # 1. Google Product Category (Static Value)
+        ET.SubElement(item, "g:google_product_category").text = GOOGLE_CATEGORY
+        
+        # 2. Vehicle Type (Required)
+        ET.SubElement(item, "g:vehicle_type").text = "car"
+        
+        # 3. Brand & Model (Now separated)
+        ET.SubElement(item, "g:brand").text = car.get("brand")
+        ET.SubElement(item, "g:model").text = car.get("model")
+        
+        # 4. Color (Now extracted)
+        ET.SubElement(item, "g:color").text = car.get("color")
+        
+        # --------------------------
+        
+        mileage = car.get("mileage")
+        if "miles" not in mileage.lower():
+            mileage = f"{mileage} miles"
+        ET.SubElement(item, "g:mileage").text = mileage
+        
+        ET.SubElement(item, "g:year").text = car.get("year")
+        ET.SubElement(item, "g:availability").text = "in_stock"
+
+    xml_str = minidom.parseString(ET.tostring(rss)).toprettyxml(indent="  ")
+    
+    with open(OUTPUT_FILE, "w") as f:
+        f.write(xml_str)
+        
+    print(f"SUCCESS: Generated {OUTPUT_FILE} with fixes.")
 
 if __name__ == "__main__":
-    run_scraper()
+    generate_xml_feed()
