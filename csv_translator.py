@@ -11,7 +11,7 @@ OUTPUT_FILE = "feed.xml"
 # CONSTANTS
 DEALER_NAME = "Albar Autos"
 DEALER_URL = "https://albarautos.co.uk"
-GOOGLE_CATEGORY_ID = "916" 
+GOOGLE_CATEGORY_ID = "916" # This ID tells Google it is a "Car"
 
 # *** YOUR STORE CODE ***
 STORE_CODE = "Albar"
@@ -93,8 +93,6 @@ def generate_xml(vehicles):
         # 3. Links & Templates
         link = get_row_value(row, ['url', 'advert_url'])
         ET.SubElement(item, "g:link").text = link
-        
-        # NOTE: The {{ }} syntax is required to print single curly braces in Python f-strings
         ET.SubElement(item, "g:link_template").text = f"{link}?store={{store_code}}"
 
         # 4. Images
@@ -102,7 +100,6 @@ def generate_xml(vehicles):
         if photos_raw:
             delimiter = '|' if '|' in photos_raw else ','
             all_imgs = [clean_image_url(x) for x in photos_raw.split(delimiter) if x.strip()]
-            
             valid_imgs = [img for img in all_imgs if is_valid_image(img)]
             
             if len(valid_imgs) > 0:
@@ -121,7 +118,7 @@ def generate_xml(vehicles):
         ET.SubElement(item, "g:mileage").text = f"{mileage} miles"
         
         ET.SubElement(item, "g:condition").text = "used"
-        ET.SubElement(item, "g:vehicle_type").text = "car"
+        # REMOVED: g:vehicle_type (This caused the error)
         ET.SubElement(item, "g:google_product_category").text = GOOGLE_CATEGORY_ID
         
         # 7. Vehicle Fulfillment
