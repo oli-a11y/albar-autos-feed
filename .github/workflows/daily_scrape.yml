@@ -28,10 +28,7 @@ jobs:
           playwright install chromium
 
       - name: Run Scraper
-        run: python scraper.py
-
-      - name: Run Feed Generator
-        run: python feed_generator.py
+        run: python csv_translator.py
 
       - name: Commit and Push Feed
         run: |
