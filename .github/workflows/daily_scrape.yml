@@ -1,0 +1,42 @@
+name: Daily Car Scrape
+
+on:
+  schedule:
+    # Runs at 04:00 AM UTC every day
+    - cron: '0 4 * * *'
+  workflow_dispatch: # Allows you to click a button to run it manually
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: |
+          pip install playwright
+          playwright install chromium
+
+      - name: Run Scraper
+        run: python scraper.py
+
+      - name: Run Feed Generator
+        run: python feed_generator.py
+
+      - name: Commit and Push Feed
+        run: |
+          git config --global user.name "GitHub Actions Bot"
+          git config --global user.email "actions@github.com"
+          git add feed.xml
+          git commit -m "Daily feed update" || exit 0
+          git push
