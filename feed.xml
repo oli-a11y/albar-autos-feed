@@ -7,8 +7,9 @@
     <item>
       <g:id>LA67HJF</g:id>
       <g:title>2018 FIAT 500 1.2 Lounge Hatchback 3dr Petrol Manual Euro 6 (s/s) (69 bhp)</g:title>
-      <g:description>2018 FIAT 500 1.2 Lounge Hatchback 3dr Petrol Manual Euro 6 (s/s) (69 bhp) Black Paint. 39798 miles. Manual Transmission. Petrol Engine. Hatchback Body with 3 doors. Available at Albar Autos.</g:description>
+      <g:description>2018 FIAT 500 1.2 Lounge Hatchback 3dr Petrol Manual Euro 6 (s/s) (69 bhp). Black. 39798 miles. Manual.</g:description>
       <g:link>https://albarautos.co.uk/car-details/fiat-500-hatchback-2018-petrol-black-manual-202509015951551</g:link>
+      <g:link_template>https://albarautos.co.uk/car-details/fiat-500-hatchback-2018-petrol-black-manual-202509015951551?store=Albar</g:link_template>
       <g:image_link>https://m.atcdn.co.uk/a/media/w1920/f38cf32e66244f0bb054f37f3c9f8382.jpg</g:image_link>
       <g:additional_image_link>https://m.atcdn.co.uk/a/media/w1920/368ad0f229bc445cb817643778236bcc.jpg,https://m.atcdn.co.uk/a/media/w1920/fe8c79fda93847b99f4da04a1f93d634.jpg,https://m.atcdn.co.uk/a/media/w1920/009c8b1ba9ee4a31b18567a47b5b288a.jpg,https://m.atcdn.co.uk/a/media/w1920/a3719c0461c5403ab7df592ae2e0fe28.jpg,https://m.atcdn.co.uk/a/media/w1920/649a76d5dc444f44b557266077e165f6.jpg,https://m.atcdn.co.uk/a/media/w1920/cb645541bc764e97a1127a9396e3b6ee.jpg,https://m.atcdn.co.uk/a/media/w1920/a7beb6f3bb8e44be88322ecf174ad045.jpg,https://m.atcdn.co.uk/a/media/w1920/1d61dabdff5c4671851d41a40be6b2b3.jpg,https://m.atcdn.co.uk/a/media/w1920/41871d9299444580b2add987d8a0a323.jpg,https://m.atcdn.co.uk/a/media/w1920/2e773b1a854f4a9aace98dda3277f887.jpg</g:additional_image_link>
       <g:price>6695 GBP</g:price>
@@ -20,15 +21,18 @@
       <g:condition>used</g:condition>
       <g:vehicle_type>car</g:vehicle_type>
       <g:google_product_category>916</g:google_product_category>
-      <g:store_code>ALBAR_MAIN</g:store_code>
-      <g:vehicle_fulfillment>in_store</g:vehicle_fulfillment>
-      <g:availability>in_stock</g:availability>
+      <g:vehicle_fulfillment>
+        <g:option>in_store</g:option>
+        <g:store_code>Albar</g:store_code>
+      </g:vehicle_fulfillment>
+      <g:store_code>Albar</g:store_code>
     </item>
     <item>
       <g:id>KV66MLF</g:id>
       <g:title>2016 BMW 2 SERIES 1.5 218i M Sport Coupe 2dr Petrol Manual Euro 6 (s/s) (136 ps)</g:title>
-      <g:description>2016 BMW 2 SERIES 1.5 218i M Sport Coupe 2dr Petrol Manual Euro 6 (s/s) (136 ps) White Paint. 70440 miles. Manual Transmission. Petrol Engine. Coupe Body with 2 doors. Available at Albar Autos.</g:description>
+      <g:description>2016 BMW 2 SERIES 1.5 218i M Sport Coupe 2dr Petrol Manual Euro 6 (s/s) (136 ps). White. 70440 miles. Manual.</g:description>
       <g:link>https://albarautos.co.uk/car-details/bmw-2-series-coupe-2016-petrol-white-manual-202509116255794</g:link>
+      <g:link_template>https://albarautos.co.uk/car-details/bmw-2-series-coupe-2016-petrol-white-manual-202509116255794?store=Albar</g:link_template>
       <g:image_link>https://m.atcdn.co.uk/a/media/w1920/546f954771ec44cc86607faca033a67a.jpg</g:image_link>
       <g:additional_image_link>https://m.atcdn.co.uk/a/media/w1920/89f158607eb34a95bf0b309be9ac12f4.jpg,https://m.atcdn.co.uk/a/media/w1920/f27ba30433b64201b346f6ed9763f074.jpg,https://m.atcdn.co.uk/a/media/w1920/075e33b9bb8545aab7b94eea27a8d86a.jpg,https://m.atcdn.co.uk/a/media/w1920/b9e883a5832341e0952d0b5a285bdbe0.jpg,https://m.atcdn.co.uk/a/media/w1920/44e9c146198e44d9a6e489d38180e1d4.jpg,https://m.atcdn.co.uk/a/media/w1920/189566d483f247a6bd5d2f1b724df9a8.jpg,https://m.atcdn.co.uk/a/media/w1920/84ecf40e6fcb47479de2c9b9dc744c50.jpg,https://m.atcdn.co.uk/a/media/w1920/ef9480db42a04130a72081141907bd40.jpg,https://m.atcdn.co.uk/a/media/w1920/36d285bb106446fabb0a8cbeceaf87fd.jpg,https://m.atcdn.co.uk/a/media/w1920/d796f4780163442aba9e444367f8ed1d.jpg</g:additional_image_link>
       <g:price>9795 GBP</g:price>
@@ -40,15 +44,18 @@
       <g:condition>used</g:condition>
       <g:vehicle_type>car</g:vehicle_type>
       <g:google_product_category>916</g:google_product_category>
-      <g:store_code>ALBAR_MAIN</g:store_code>
-      <g:vehicle_fulfillment>in_store</g:vehicle_fulfillment>
-      <g:availability>in_stock</g:availability>
+      <g:vehicle_fulfillment>
+        <g:option>in_store</g:option>
+        <g:store_code>Albar</g:store_code>
+      </g:vehicle_fulfillment>
+      <g:store_code>Albar</g:store_code>
     </item>
     <item>
       <g:id>PK64ULA</g:id>
       <g:title>2014 Kia Picanto 1.25 3 Auto Euro 5 5dr</g:title>
-      <g:description>2014 Kia Picanto 1.25 3 Auto Euro 5 5dr Green Paint. 52000 miles. Automatic Transmission. Petrol Engine. Hatchback Body with 5 doors. Available at Albar Autos.</g:description>
+      <g:description>2014 Kia Picanto 1.25 3 Auto Euro 5 5dr. Green. 52000 miles. Automatic.</g:description>
       <g:link>https://albarautos.co.uk/car-details/kia-picanto-hatchback-2014-petrol-green-automatic-202510097035500</g:link>
+      <g:link_template>https://albarautos.co.uk/car-details/kia-picanto-hatchback-2014-petrol-green-automatic-202510097035500?store=Albar</g:link_template>
       <g:image_link>https://m.atcdn.co.uk/a/media/w1920/64c2ae43af4e41369c5fa5144810928c.jpg</g:image_link>
       <g:additional_image_link>https://m.atcdn.co.uk/a/media/w1920/1667020789bf4ba7aa684ae1adffe18d.jpg,https://m.atcdn.co.uk/a/media/w1920/628c8cab6d2748338064f6fc94225ba8.jpg,https://m.atcdn.co.uk/a/media/w1920/790ed22b040e422f84029e6cc5bbcd9e.jpg,https://m.atcdn.co.uk/a/media/w1920/5fdc8c74d8184feea1ac830e8286d713.jpg,https://m.atcdn.co.uk/a/media/w1920/7dbb3fe5cbc246f2aee1f59d41338648.jpg,https://m.atcdn.co.uk/a/media/w1920/39631fb7c0f44dd997de6466a947aa26.jpg,https://m.atcdn.co.uk/a/media/w1920/f08f7e16c21c4c62bf43407665949aec.jpg,https://m.atcdn.co.uk/a/media/w1920/2c9243de47a34befa04272b4efea69db.jpg,https://m.atcdn.co.uk/a/media/w1920/c2e451a21be04008827ced87af702115.jpg,https://m.atcdn.co.uk/a/media/w1920/65fa3164f1894245b1ef77a053a90719.jpg</g:additional_image_link>
       <g:price>6995 GBP</g:price>
@@ -60,15 +67,18 @@
       <g:condition>used</g:condition>
       <g:vehicle_type>car</g:vehicle_type>
       <g:google_product_category>916</g:google_product_category>
-      <g:store_code>ALBAR_MAIN</g:store_code>
-      <g:vehicle_fulfillment>in_store</g:vehicle_fulfillment>
-      <g:availability>in_stock</g:availability>
+      <g:vehicle_fulfillment>
+        <g:option>in_store</g:option>
+        <g:store_code>Albar</g:store_code>
+      </g:vehicle_fulfillment>
+      <g:store_code>Albar</g:store_code>
     </item>
     <item>
       <g:id>KK18OLN</g:id>
       <g:title>2018 Volvo V40 1.5 T2 GPF R-Design Nav Plus Auto Euro 6 (s/s) 5dr</g:title>
-      <g:description>2018 Volvo V40 1.5 T2 GPF R-Design Nav Plus Auto Euro 6 (s/s) 5dr Silver Paint. 68266 miles. Automatic Transmission. Petrol Engine. Hatchback Body with 5 doors. Available at Albar Autos.</g:description>
+      <g:description>2018 Volvo V40 1.5 T2 GPF R-Design Nav Plus Auto Euro 6 (s/s) 5dr. Silver. 68266 miles. Automatic.</g:description>
       <g:link>https://albarautos.co.uk/car-details/volvo-v40-hatchback-2018-petrol-silver-automatic-202511258134996</g:link>
+      <g:link_template>https://albarautos.co.uk/car-details/volvo-v40-hatchback-2018-petrol-silver-automatic-202511258134996?store=Albar</g:link_template>
       <g:image_link>https://m.atcdn.co.uk/a/media/w1920/9179e3b54e424545ae301a17c5c87abf.jpg</g:image_link>
       <g:additional_image_link>https://m.atcdn.co.uk/a/media/w1920/2ce1e2d73bbc4521b76ea6eec3cbf27f.jpg,https://m.atcdn.co.uk/a/media/w1920/c5e8d1d2eb454d59878ad67999411d55.jpg,https://m.atcdn.co.uk/a/media/w1920/252a771e0ab843f2a789636c6839b7c6.jpg,https://m.atcdn.co.uk/a/media/w1920/bf4b0fae7ec54bbd8cbe9b6102690910.jpg,https://m.atcdn.co.uk/a/media/w1920/2b9ab264f1a34b328c0274772b622082.jpg,https://m.atcdn.co.uk/a/media/w1920/5da05ec72d1a490a81c59185412ee724.jpg,https://m.atcdn.co.uk/a/media/w1920/1eb5af5fecc948949bd3b13e5a1370ad.jpg</g:additional_image_link>
       <g:price>9995 GBP</g:price>
@@ -80,15 +90,18 @@
       <g:condition>used</g:condition>
       <g:vehicle_type>car</g:vehicle_type>
       <g:google_product_category>916</g:google_product_category>
-      <g:store_code>ALBAR_MAIN</g:store_code>
-      <g:vehicle_fulfillment>in_store</g:vehicle_fulfillment>
-      <g:availability>in_stock</g:availability>
+      <g:vehicle_fulfillment>
+        <g:option>in_store</g:option>
+        <g:store_code>Albar</g:store_code>
+      </g:vehicle_fulfillment>
+      <g:store_code>Albar</g:store_code>
     </item>
     <item>
       <g:id>DT18MPE</g:id>
       <g:title>2018 MINI Hatch 2.0 John Cooper Works Euro 6 (s/s) 3dr</g:title>
-      <g:description>2018 MINI Hatch 2.0 John Cooper Works Euro 6 (s/s) 3dr Blue Paint. 38475 miles. Manual Transmission. Petrol Engine. Hatchback Body with 3 doors. Available at Albar Autos.</g:description>
+      <g:description>2018 MINI Hatch 2.0 John Cooper Works Euro 6 (s/s) 3dr. Blue. 38475 miles. Manual.</g:description>
       <g:link>https://albarautos.co.uk/car-details/mini-hatch-hatchback-2018-petrol-blue-manual-202511157912542</g:link>
+      <g:link_template>https://albarautos.co.uk/car-details/mini-hatch-hatchback-2018-petrol-blue-manual-202511157912542?store=Albar</g:link_template>
       <g:image_link>https://m.atcdn.co.uk/a/media/w1920/606cd28f052c4a72aebd636e4eb6f492.jpg</g:image_link>
       <g:additional_image_link>https://m.atcdn.co.uk/a/media/w1920/4e6e1a90137b443d95313a9c9b19038c.jpg,https://m.atcdn.co.uk/a/media/w1920/88962dc35af04c1eab096ca81e192c42.jpg,https://m.atcdn.co.uk/a/media/w1920/caa9d2da7e674c1884a51241c3053815.jpg,https://m.atcdn.co.uk/a/media/w1920/64e18db745db42f0b9b4fbeacd505df8.jpg,https://m.atcdn.co.uk/a/media/w1920/8c0cb90b6acc4f3bba7edb8896a8ef42.jpg,https://m.atcdn.co.uk/a/media/w1920/aecd95e86d08466d82863800910a8c35.jpg,https://m.atcdn.co.uk/a/media/w1920/68d466e2a4b74b32ab4cb3cd3a7e4719.jpg,https://m.atcdn.co.uk/a/media/w1920/bcca63e79d124a4e819a69a353788424.jpg,https://m.atcdn.co.uk/a/media/w1920/875f71c6edf142f8a68409e55544d2aa.jpg,https://m.atcdn.co.uk/a/media/w1920/fbc5bf37e54c4a37aa4a7d2edab63369.jpg</g:additional_image_link>
       <g:price>15995 GBP</g:price>
@@ -100,15 +113,18 @@
       <g:condition>used</g:condition>
       <g:vehicle_type>car</g:vehicle_type>
       <g:google_product_category>916</g:google_product_category>
-      <g:store_code>ALBAR_MAIN</g:store_code>
-      <g:vehicle_fulfillment>in_store</g:vehicle_fulfillment>
-      <g:availability>in_stock</g:availability>
+      <g:vehicle_fulfillment>
+        <g:option>in_store</g:option>
+        <g:store_code>Albar</g:store_code>
+      </g:vehicle_fulfillment>
+      <g:store_code>Albar</g:store_code>
     </item>
     <item>
       <g:id>WG69XCE</g:id>
       <g:title>2020 Mercedes-Benz A Class 1.3 A200 AMG Line (Premium Plus 2) 7G-DCT Euro 6 (s/s) 5dr</g:title>
-      <g:description>2020 Mercedes-Benz A Class 1.3 A200 AMG Line (Premium Plus 2) 7G-DCT Euro 6 (s/s) 5dr Blue Paint. 41555 miles. Automatic Transmission. Petrol Engine. Hatchback Body with 5 doors. Available at Albar Autos.</g:description>
+      <g:description>2020 Mercedes-Benz A Class 1.3 A200 AMG Line (Premium Plus 2) 7G-DCT Euro 6 (s/s) 5dr. Blue. 41555 miles. Automatic.</g:description>
       <g:link>https://albarautos.co.uk/car-details/mercedes-benz-a-class-hatchback-2020-petrol-blue-automatic-202510097035340</g:link>
+      <g:link_template>https://albarautos.co.uk/car-details/mercedes-benz-a-class-hatchback-2020-petrol-blue-automatic-202510097035340?store=Albar</g:link_template>
       <g:image_link>https://m.atcdn.co.uk/a/media/w1920/c32fc53f1d6a4c6e9a103b48513acc73.jpg</g:image_link>
       <g:additional_image_link>https://m.atcdn.co.uk/a/media/w1920/bb0be1b39839476c94f87041d2faed72.jpg,https://m.atcdn.co.uk/a/media/w1920/3accf6f8b4ce4dd8a03a1ddb75568b54.jpg,https://m.atcdn.co.uk/a/media/w1920/ae99365df9864a249b2a27900db21c3c.jpg,https://m.atcdn.co.uk/a/media/w1920/427422aecc6443598e576a61f8e11699.jpg,https://m.atcdn.co.uk/a/media/w1920/44d8cb25dbe04a9eb72f4794ebb123cf.jpg,https://m.atcdn.co.uk/a/media/w1920/0042be009328493395831c0aac4e6ff4.jpg,https://m.atcdn.co.uk/a/media/w1920/6baa57b6e6844d999a1abdb5c2314053.jpg,https://m.atcdn.co.uk/a/media/w1920/b0179a5d946c49a89506d450bd7537e0.jpg,https://m.atcdn.co.uk/a/media/w1920/d13b8b8761b14da680f313706cf04e37.jpg,https://m.atcdn.co.uk/a/media/w1920/435054070c34463fbb583548beaf975e.jpg</g:additional_image_link>
       <g:price>20595 GBP</g:price>
@@ -120,15 +136,18 @@
       <g:condition>used</g:condition>
       <g:vehicle_type>car</g:vehicle_type>
       <g:google_product_category>916</g:google_product_category>
-      <g:store_code>ALBAR_MAIN</g:store_code>
-      <g:vehicle_fulfillment>in_store</g:vehicle_fulfillment>
-      <g:availability>in_stock</g:availability>
+      <g:vehicle_fulfillment>
+        <g:option>in_store</g:option>
+        <g:store_code>Albar</g:store_code>
+      </g:vehicle_fulfillment>
+      <g:store_code>Albar</g:store_code>
     </item>
     <item>
       <g:id>KM72MKP</g:id>
       <g:title>2022 Audi A3 1.0 TFSI 30 Sport Sportback Euro 6 (s/s) 5dr</g:title>
-      <g:description>2022 Audi A3 1.0 TFSI 30 Sport Sportback Euro 6 (s/s) 5dr Black Paint. 34063 miles. Manual Transmission. Petrol Engine. Hatchback Body with 5 doors. Available at Albar Autos.</g:description>
+      <g:description>2022 Audi A3 1.0 TFSI 30 Sport Sportback Euro 6 (s/s) 5dr. Black. 34063 miles. Manual.</g:description>
       <g:link>https://albarautos.co.uk/car-details/audi-a3-hatchback-2022-petrol-black-manual-202510147134809</g:link>
+      <g:link_template>https://albarautos.co.uk/car-details/audi-a3-hatchback-2022-petrol-black-manual-202510147134809?store=Albar</g:link_template>
       <g:image_link>https://m.atcdn.co.uk/a/media/w1920/9a18045d971a4aea929e3fc7d3e88e51.jpg</g:image_link>
       <g:additional_image_link>https://m.atcdn.co.uk/a/media/w1920/3237e58919384da695616e36a5e53df9.jpg,https://m.atcdn.co.uk/a/media/w1920/b5f6931e6a7c45a09410018478371cd8.jpg,https://m.atcdn.co.uk/a/media/w1920/fd5ddc66423441c3a0525c28590e1bed.jpg,https://m.atcdn.co.uk/a/media/w1920/860d8f4a0a964bcc895192700dd97240.jpg,https://m.atcdn.co.uk/a/media/w1920/60123e71233d46d89110548b8e621c54.jpg,https://m.atcdn.co.uk/a/media/w1920/a7cd2cc757134bb5a6ee5c80c6d64215.jpg,https://m.atcdn.co.uk/a/media/w1920/d500b37dbd034c889360bb8bb29ab296.jpg,https://m.atcdn.co.uk/a/media/w1920/5165c0c71bfb4cf28e9d3fcf3f7dc89f.jpg,https://m.atcdn.co.uk/a/media/w1920/defcecb90fba40968752c5814f8acaf2.jpg,https://m.atcdn.co.uk/a/media/w1920/acf8f45d6886499ba8272cc6eecc6306.jpg</g:additional_image_link>
       <g:price>17495 GBP</g:price>
@@ -140,15 +159,18 @@
       <g:condition>used</g:condition>
       <g:vehicle_type>car</g:vehicle_type>
       <g:google_product_category>916</g:google_product_category>
-      <g:store_code>ALBAR_MAIN</g:store_code>
-      <g:vehicle_fulfillment>in_store</g:vehicle_fulfillment>
-      <g:availability>in_stock</g:availability>
+      <g:vehicle_fulfillment>
+        <g:option>in_store</g:option>
+        <g:store_code>Albar</g:store_code>
+      </g:vehicle_fulfillment>
+      <g:store_code>Albar</g:store_code>
     </item>
     <item>
       <g:id>BC19GVN</g:id>
       <g:title>2019 SKODA OCTAVIA 2.0 TSI GPF vRS Hatchback 5dr Petrol DSG Euro 6 (s/s) (245 ps)</g:title>
-      <g:description>2019 SKODA OCTAVIA 2.0 TSI GPF vRS Hatchback 5dr Petrol DSG Euro 6 (s/s) (245 ps) Grey Paint. 64095 miles. Automatic Transmission. Petrol Engine. Hatchback Body with 5 doors. Available at Albar Autos.</g:description>
+      <g:description>2019 SKODA OCTAVIA 2.0 TSI GPF vRS Hatchback 5dr Petrol DSG Euro 6 (s/s) (245 ps). Grey. 64095 miles. Automatic.</g:description>
       <g:link>https://albarautos.co.uk/car-details/skoda-octavia-hatchback-2019-petrol-grey-automatic-202509186441155</g:link>
+      <g:link_template>https://albarautos.co.uk/car-details/skoda-octavia-hatchback-2019-petrol-grey-automatic-202509186441155?store=Albar</g:link_template>
       <g:image_link>https://m.atcdn.co.uk/a/media/w1920/11bd6b0e7d2042b8b6ac0e3630afcd3e.jpg</g:image_link>
       <g:additional_image_link>https://m.atcdn.co.uk/a/media/w1920/95e423711e4447059befff514fdebed4.jpg,https://m.atcdn.co.uk/a/media/w1920/5991f90aa2eb41118d7bca98a17122f6.jpg,https://m.atcdn.co.uk/a/media/w1920/ae21021b648345d4a8b344ce020cc849.jpg,https://m.atcdn.co.uk/a/media/w1920/306b5e92d2744063ac1b4074aecef2f8.jpg,https://m.atcdn.co.uk/a/media/w1920/0e1433e80307424a8f03f1a35c6f6954.jpg,https://m.atcdn.co.uk/a/media/w1920/e89c402cdc1b4c86b3a16e77dbcac626.jpg,https://m.atcdn.co.uk/a/media/w1920/fbe8c5a452e24c8a8a0e065f81d51621.jpg,https://m.atcdn.co.uk/a/media/w1920/5eb0ce3e7ca74171ae8a793f81fd5c32.jpg,https://m.atcdn.co.uk/a/media/w1920/f3d48694adae43d2b55728fe6581a8c4.jpg,https://m.atcdn.co.uk/a/media/w1920/afb85e83db2a45ac821f845146b8649b.jpg</g:additional_image_link>
       <g:price>15495 GBP</g:price>
@@ -160,15 +182,18 @@
       <g:condition>used</g:condition>
       <g:vehicle_type>car</g:vehicle_type>
       <g:google_product_category>916</g:google_product_category>
-      <g:store_code>ALBAR_MAIN</g:store_code>
-      <g:vehicle_fulfillment>in_store</g:vehicle_fulfillment>
-      <g:availability>in_stock</g:availability>
+      <g:vehicle_fulfillment>
+        <g:option>in_store</g:option>
+        <g:store_code>Albar</g:store_code>
+      </g:vehicle_fulfillment>
+      <g:store_code>Albar</g:store_code>
     </item>
     <item>
       <g:id>LX19HFW</g:id>
       <g:title>2019 FIAT 500C 1.2 Rock Star Convertible 2dr Petrol Manual Euro 6 (s/s) (69 bhp)</g:title>
-      <g:description>2019 FIAT 500C 1.2 Rock Star Convertible 2dr Petrol Manual Euro 6 (s/s) (69 bhp) Grey Paint. 45500 miles. Manual Transmission. Petrol Engine. Convertible Body with 2 doors. Available at Albar Autos.</g:description>
+      <g:description>2019 FIAT 500C 1.2 Rock Star Convertible 2dr Petrol Manual Euro 6 (s/s) (69 bhp). Grey. 45500 miles. Manual.</g:description>
       <g:link>https://albarautos.co.uk/car-details/fiat-500c-convertible-2019-petrol-grey-manual-202507094318414</g:link>
+      <g:link_template>https://albarautos.co.uk/car-details/fiat-500c-convertible-2019-petrol-grey-manual-202507094318414?store=Albar</g:link_template>
       <g:image_link>https://m.atcdn.co.uk/a/media/w1920/4be90c0dd3cd4d7e8a7fbceed0a2900f.jpg</g:image_link>
       <g:additional_image_link>https://m.atcdn.co.uk/a/media/w1920/8291f88fdbab417687058a39c537673b.jpg,https://m.atcdn.co.uk/a/media/w1920/e20b38f8ed30496482376406dbfe7796.jpg,https://m.atcdn.co.uk/a/media/w1920/4c81f0ef1320420b9b24ddb326140f18.jpg,https://m.atcdn.co.uk/a/media/w1920/e4960bcbab004b20873142c12e6ccd39.jpg,https://m.atcdn.co.uk/a/media/w1920/db06cbb06d8e4e108256cdbfb0870239.jpg,https://m.atcdn.co.uk/a/media/w1920/7df3ba744e2f4ac8918bcee74ffa380e.jpg,https://m.atcdn.co.uk/a/media/w1920/7bdedf965c3d4f7c95eb0ef486f73852.jpg,https://m.atcdn.co.uk/a/media/w1920/51e45adf69e84a0c8404fda1d4675267.jpg,https://m.atcdn.co.uk/a/media/w1920/966ca607024e4a91b8c789ed2eb31477.jpg,https://m.atcdn.co.uk/a/media/w1920/6fca7be2e92d423f8c08f42c6fd6b461.jpg</g:additional_image_link>
       <g:price>7995 GBP</g:price>
@@ -180,15 +205,18 @@
       <g:condition>used</g:condition>
       <g:vehicle_type>car</g:vehicle_type>
       <g:google_product_category>916</g:google_product_category>
-      <g:store_code>ALBAR_MAIN</g:store_code>
-      <g:vehicle_fulfillment>in_store</g:vehicle_fulfillment>
-      <g:availability>in_stock</g:availability>
+      <g:vehicle_fulfillment>
+        <g:option>in_store</g:option>
+        <g:store_code>Albar</g:store_code>
+      </g:vehicle_fulfillment>
+      <g:store_code>Albar</g:store_code>
     </item>
     <item>
       <g:id>BT69ONX</g:id>
       <g:title>2019 Audi Q2 1.0 TFSI 30 Sport Euro 6 (s/s) 5dr</g:title>
-      <g:description>2019 Audi Q2 1.0 TFSI 30 Sport Euro 6 (s/s) 5dr Grey Paint. 58707 miles. Manual Transmission. Petrol Engine. SUV Body with 5 doors. Available at Albar Autos.</g:description>
+      <g:description>2019 Audi Q2 1.0 TFSI 30 Sport Euro 6 (s/s) 5dr. Grey. 58707 miles. Manual.</g:description>
       <g:link>https://albarautos.co.uk/car-details/audi-q2-suv-2019-petrol-grey-manual-202511137867419</g:link>
+      <g:link_template>https://albarautos.co.uk/car-details/audi-q2-suv-2019-petrol-grey-manual-202511137867419?store=Albar</g:link_template>
       <g:image_link>https://m.atcdn.co.uk/a/media/w1920/8d4acfa6be98419e9a4b3d6477ea0752.jpg</g:image_link>
       <g:additional_image_link>https://m.atcdn.co.uk/a/media/w1920/b65d56eb77664c7090207bb6898527d2.jpg,https://m.atcdn.co.uk/a/media/w1920/55894edf284f49c6b89f666bd3aa5db1.jpg,https://m.atcdn.co.uk/a/media/w1920/20c8e6e0f200455987dec425051d4a4b.jpg,https://m.atcdn.co.uk/a/media/w1920/1c8d37c7ccc142968285108295806cef.jpg,https://m.atcdn.co.uk/a/media/w1920/923f6ac502054a27a30f6e56e383ad6f.jpg,https://m.atcdn.co.uk/a/media/w1920/6fe43a6011124287b6fe32ac9ba85b7b.jpg,https://m.atcdn.co.uk/a/media/w1920/46f05b7bf1ed462a8fb8af53fa733060.jpg,https://m.atcdn.co.uk/a/media/w1920/3b876370279644989a6314c1b24e6267.jpg,https://m.atcdn.co.uk/a/media/w1920/98757ddc04784068917dc869577c5518.jpg,https://m.atcdn.co.uk/a/media/w1920/00dc60b6d2aa40ec88e21814514b0128.jpg</g:additional_image_link>
       <g:price>12795 GBP</g:price>
@@ -200,15 +228,18 @@
       <g:condition>used</g:condition>
       <g:vehicle_type>car</g:vehicle_type>
       <g:google_product_category>916</g:google_product_category>
-      <g:store_code>ALBAR_MAIN</g:store_code>
-      <g:vehicle_fulfillment>in_store</g:vehicle_fulfillment>
-      <g:availability>in_stock</g:availability>
+      <g:vehicle_fulfillment>
+        <g:option>in_store</g:option>
+        <g:store_code>Albar</g:store_code>
+      </g:vehicle_fulfillment>
+      <g:store_code>Albar</g:store_code>
     </item>
     <item>
       <g:id>BD14FTX</g:id>
       <g:title>2014 Audi A3 1.4 TFSI CoD S line S Tronic Euro 6 (s/s) 4dr</g:title>
-      <g:description>2014 Audi A3 1.4 TFSI CoD S line S Tronic Euro 6 (s/s) 4dr White Paint. 52741 miles. Automatic Transmission. Petrol Engine. Saloon Body with 4 doors. Available at Albar Autos.</g:description>
+      <g:description>2014 Audi A3 1.4 TFSI CoD S line S Tronic Euro 6 (s/s) 4dr. White. 52741 miles. Automatic.</g:description>
       <g:link>https://albarautos.co.uk/car-details/audi-a3-saloon-2014-petrol-white-automatic-202511198010360</g:link>
+      <g:link_template>https://albarautos.co.uk/car-details/audi-a3-saloon-2014-petrol-white-automatic-202511198010360?store=Albar</g:link_template>
       <g:image_link>https://m.atcdn.co.uk/a/media/w1920/2df137ad97bc4ad4b306b58b7ed9d408.jpg</g:image_link>
       <g:additional_image_link>https://m.atcdn.co.uk/a/media/w1920/b60eb793c05f484599dc856eee8bf602.jpg,https://m.atcdn.co.uk/a/media/w1920/9de90f16b9a04b86aa061eb4322498db.jpg,https://m.atcdn.co.uk/a/media/w1920/22d128437d0d43b4bf5cd478c907191c.jpg,https://m.atcdn.co.uk/a/media/w1920/294de91a8a80477eb658ffab6b4cadf1.jpg,https://m.atcdn.co.uk/a/media/w1920/b765664398564dd29e1706bd2d9c786a.jpg,https://m.atcdn.co.uk/a/media/w1920/704b1903b551473db6701fe60c0ffc61.jpg,https://m.atcdn.co.uk/a/media/w1920/eab4ca233089481da3e74f4340056825.jpg,https://m.atcdn.co.uk/a/media/w1920/9e5cc271d6c54053b9cced13ab6aac36.jpg,https://m.atcdn.co.uk/a/media/w1920/15577d4785a04e239e977cd13c4a7fee.jpg,https://m.atcdn.co.uk/a/media/w1920/a887824c13504f42bff182f4a75160d6.jpg</g:additional_image_link>
       <g:price>11995 GBP</g:price>
@@ -220,15 +251,18 @@
       <g:condition>used</g:condition>
       <g:vehicle_type>car</g:vehicle_type>
       <g:google_product_category>916</g:google_product_category>
-      <g:store_code>ALBAR_MAIN</g:store_code>
-      <g:vehicle_fulfillment>in_store</g:vehicle_fulfillment>
-      <g:availability>in_stock</g:availability>
+      <g:vehicle_fulfillment>
+        <g:option>in_store</g:option>
+        <g:store_code>Albar</g:store_code>
+      </g:vehicle_fulfillment>
+      <g:store_code>Albar</g:store_code>
     </item>
     <item>
       <g:id>SO72UJK</g:id>
       <g:title>2023 Toyota Yaris 1.5 VVT-h GR SPORT E-CVT Euro 6 (s/s) 5dr</g:title>
-      <g:description>2023 Toyota Yaris 1.5 VVT-h GR SPORT E-CVT Euro 6 (s/s) 5dr White Paint. 24100 miles. Automatic Transmission. Petrol Hybrid Engine. Hatchback Body with 5 doors. Available at Albar Autos.</g:description>
+      <g:description>2023 Toyota Yaris 1.5 VVT-h GR SPORT E-CVT Euro 6 (s/s) 5dr. White. 24100 miles. Automatic.</g:description>
       <g:link>https://albarautos.co.uk/car-details/toyota-yaris-hatchback-2023-petrol-hybrid-white-automatic-202511037612258</g:link>
+      <g:link_template>https://albarautos.co.uk/car-details/toyota-yaris-hatchback-2023-petrol-hybrid-white-automatic-202511037612258?store=Albar</g:link_template>
       <g:image_link>https://m.atcdn.co.uk/a/media/w1920/1f522e7570004daab6fd31b0b7ba57cf.jpg</g:image_link>
       <g:additional_image_link>https://m.atcdn.co.uk/a/media/w1920/a574fe05c2dd46818a8eb4d9dfd52dc0.jpg,https://m.atcdn.co.uk/a/media/w1920/078becc2e56b47e8b47de8db80529d3a.jpg,https://m.atcdn.co.uk/a/media/w1920/8f4e04cc51024d7eae5549f7c0bbdd70.jpg,https://m.atcdn.co.uk/a/media/w1920/23540cc0401c4323b524c615eb3e5b28.jpg,https://m.atcdn.co.uk/a/media/w1920/f234544b49e44232a92fbd840aa2897d.jpg,https://m.atcdn.co.uk/a/media/w1920/f67e9e6942f54bfabf855dc0dcdea12d.jpg,https://m.atcdn.co.uk/a/media/w1920/5f9578ca5ac14e88bd58ceae350448bb.jpg,https://m.atcdn.co.uk/a/media/w1920/e1b904e29a0f4ff096bd3c8199af29aa.jpg,https://m.atcdn.co.uk/a/media/w1920/b536735f79d24ba3b400d6a7af7535fe.jpg,https://m.atcdn.co.uk/a/media/w1920/bb833aa8ec2a4cb88734582adb89e18e.jpg</g:additional_image_link>
       <g:price>18295 GBP</g:price>
@@ -240,15 +274,18 @@
       <g:condition>used</g:condition>
       <g:vehicle_type>car</g:vehicle_type>
       <g:google_product_category>916</g:google_product_category>
-      <g:store_code>ALBAR_MAIN</g:store_code>
-      <g:vehicle_fulfillment>in_store</g:vehicle_fulfillment>
-      <g:availability>in_stock</g:availability>
+      <g:vehicle_fulfillment>
+        <g:option>in_store</g:option>
+        <g:store_code>Albar</g:store_code>
+      </g:vehicle_fulfillment>
+      <g:store_code>Albar</g:store_code>
     </item>
     <item>
       <g:id>WG70CSV</g:id>
       <g:title>2020 PEUGEOT E-208 50kWh GT Hatchback 5dr Electric Auto (136 ps)</g:title>
-      <g:description>2020 PEUGEOT E-208 50kWh GT Hatchback 5dr Electric Auto (136 ps) Yellow Paint. 39892 miles. Automatic Transmission. Electric Engine. Hatchback Body with 5 doors. Available at Albar Autos.</g:description>
+      <g:description>2020 PEUGEOT E-208 50kWh GT Hatchback 5dr Electric Auto (136 ps). Yellow. 39892 miles. Automatic.</g:description>
       <g:link>https://albarautos.co.uk/car-details/peugeot-e-208-hatchback-2020-electric-yellow-automatic-202509015951224</g:link>
+      <g:link_template>https://albarautos.co.uk/car-details/peugeot-e-208-hatchback-2020-electric-yellow-automatic-202509015951224?store=Albar</g:link_template>
       <g:image_link>https://m.atcdn.co.uk/a/media/w1920/0b5d7c078a3245cd9c9aadd37ba5426d.jpg</g:image_link>
       <g:additional_image_link>https://m.atcdn.co.uk/a/media/w1920/a76e4ad2ef47482bab664b2e38123d49.jpg,https://m.atcdn.co.uk/a/media/w1920/e216a6845bf343eda1b31a14eba8cf6d.jpg,https://m.atcdn.co.uk/a/media/w1920/081b28a69ec445e58c35b89e3f67dd9f.jpg,https://m.atcdn.co.uk/a/media/w1920/13db419518104c779d18cd6c72c2d294.jpg,https://m.atcdn.co.uk/a/media/w1920/629003c1755f4e46921b66934dacb19b.jpg,https://m.atcdn.co.uk/a/media/w1920/8042012828a54c1aafb9a15f8b8a8dc5.jpg,https://m.atcdn.co.uk/a/media/w1920/2812a10e3dd740d0bd9bcc38a567374b.jpg,https://m.atcdn.co.uk/a/media/w1920/59e22e0333254dca93bc3d3a5c3ef5e1.jpg</g:additional_image_link>
       <g:price>10995 GBP</g:price>
@@ -260,15 +297,18 @@
       <g:condition>used</g:condition>
       <g:vehicle_type>car</g:vehicle_type>
       <g:google_product_category>916</g:google_product_category>
-      <g:store_code>ALBAR_MAIN</g:store_code>
-      <g:vehicle_fulfillment>in_store</g:vehicle_fulfillment>
-      <g:availability>in_stock</g:availability>
+      <g:vehicle_fulfillment>
+        <g:option>in_store</g:option>
+        <g:store_code>Albar</g:store_code>
+      </g:vehicle_fulfillment>
+      <g:store_code>Albar</g:store_code>
     </item>
     <item>
       <g:id>FP24DZM</g:id>
       <g:title>2024 KIA SPORTAGE 1.6 T-GDi 13.8kWh GT-Line S SUV 5dr Petrol Plug-in Hybrid Auto AWD Euro 6 (s/s) (261 bhp)</g:title>
-      <g:description>2024 KIA SPORTAGE 1.6 T-GDi 13.8kWh GT-Line S SUV 5dr Petrol Plug-in Hybrid Auto AWD Euro 6 (s/s) (261 bhp) White Paint. 7999 miles. Automatic Transmission. Hybrid Engine. SUV Body with 5 doors. Available at Albar Autos.</g:description>
+      <g:description>2024 KIA SPORTAGE 1.6 T-GDi 13.8kWh GT-Line S SUV 5dr Petrol Plug-in Hybrid Auto AWD Euro 6 (s/s) (261 bhp). White. 7999 miles. Automatic.</g:description>
       <g:link>https://albarautos.co.uk/car-details/kia-sportage-suv-2024-hybrid-white-automatic-202505222702793</g:link>
+      <g:link_template>https://albarautos.co.uk/car-details/kia-sportage-suv-2024-hybrid-white-automatic-202505222702793?store=Albar</g:link_template>
       <g:image_link>https://m.atcdn.co.uk/a/media/w1920/8a7841a04fb44de3a5bbec0f75320077.jpg</g:image_link>
       <g:additional_image_link>https://m.atcdn.co.uk/a/media/w1920/ec80cc3ace4840c7bfca3aeafff56c06.jpg,https://m.atcdn.co.uk/a/media/w1920/3c081f35b20649cca7b993ddacab4d33.jpg,https://m.atcdn.co.uk/a/media/w1920/5c44fd71193244dd89e6e1cd62d7ec47.jpg,https://m.atcdn.co.uk/a/media/w1920/77e8cfd68dda44dbb2eee117b3f5eeda.jpg,https://m.atcdn.co.uk/a/media/w1920/ea56aef88ba74c6db1072fe7a6927451.jpg,https://m.atcdn.co.uk/a/media/w1920/edf400ae6a2b4897a4da56631fbe79f7.jpg,https://m.atcdn.co.uk/a/media/w1920/036e30439242483ca0d09d8e97251068.jpg,https://m.atcdn.co.uk/a/media/w1920/a674d34a6d4644a1ac8209a55a73993f.jpg,https://m.atcdn.co.uk/a/media/w1920/3e83dbab48064a74b071fed5a29d6621.jpg,https://m.atcdn.co.uk/a/media/w1920/3e83dbab48064a74b071fed5a29d6621.jpg</g:additional_image_link>
       <g:price>31995 GBP</g:price>
@@ -280,9 +320,11 @@
       <g:condition>used</g:condition>
       <g:vehicle_type>car</g:vehicle_type>
       <g:google_product_category>916</g:google_product_category>
-      <g:store_code>ALBAR_MAIN</g:store_code>
-      <g:vehicle_fulfillment>in_store</g:vehicle_fulfillment>
-      <g:availability>in_stock</g:availability>
+      <g:vehicle_fulfillment>
+        <g:option>in_store</g:option>
+        <g:store_code>Albar</g:store_code>
+      </g:vehicle_fulfillment>
+      <g:store_code>Albar</g:store_code>
     </item>
   </channel>
 </rss>
