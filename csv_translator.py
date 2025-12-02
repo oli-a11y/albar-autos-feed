@@ -39,6 +39,15 @@ def get_row_value(row, possible_keys):
             return normalized_row[clean_key]
     return ""
 
+def clean_drivetrain(dt_text):
+    """Maps verbose drivetrains to Google's preferred abbreviations."""
+    if not dt_text: return ""
+    dt_lower = dt_text.lower()
+    if "front" in dt_lower: return "FWD"
+    if "rear" in dt_lower: return "RWD"
+    if "4x4" in dt_lower or "four" in dt_lower or "all" in dt_lower: return "4WD"
+    return dt_text
+
 def get_google_feed():
     print("Downloading CSV feed...")
     try:
@@ -81,29 +90,44 @@ def generate_xml(vehicles):
         year = get_row_value(row, ['yearOfManufacture'])
         mileage = get_row_value(row, ['odometerReadingMiles'])
         
-        # --- NEW RICH ATTRIBUTES ---
-        # 1. Trim
+        # --- NEW ATTRIBUTES (BATCH 2) ---
+        body_style = get_row_value(row, ['bodyType'])
+        if body_style:
+            ET.SubElement(item, "g:body_style").text = body_style
+
+        transmission = get_row_value(row, ['transmissionType'])
+        if transmission:
+            ET.SubElement(item, "g:transmission").text = transmission
+
+        fuel_type = get_row_value(row, ['fuelType'])
+        if fuel_type:
+            ET.SubElement(item, "g:fuel_type").text = fuel_type
+
+        drivetrain = clean_drivetrain(get_row_value(row, ['drivetrain']))
+        if drivetrain:
+            ET.SubElement(item, "g:drivetrain").text = drivetrain
+
+        doors = get_row_value(row, ['doors'])
+        if doors:
+            ET.SubElement(item, "g:doors").text = doors
+
+        # --- PREVIOUS ATTRIBUTES (BATCH 1) ---
         trim = get_row_value(row, ['trim'])
         if trim and trim.lower() != 'unlisted':
             ET.SubElement(item, "g:trim").text = trim
 
-        # 2. Engine (Format: "1.2L")
         engine_size = get_row_value(row, ['badgeEngineSizeLitres'])
         if engine_size:
             ET.SubElement(item, "g:engine").text = f"{engine_size}L"
 
-        # 3. Electric Range (Format: "200 miles")
         elec_range = get_row_value(row, ['batteryRangeMiles'])
         if elec_range and elec_range != '0':
             ET.SubElement(item, "g:electric_range").text = f"{elec_range} miles"
 
-        # 4. Emissions Standard (e.g. "Euro 6")
         emissions = get_row_value(row, ['emissionClass'])
         if emissions:
             ET.SubElement(item, "g:emissions_standard").text = emissions
 
-        # 5. Fuel Efficiency (Format: "55 MPG")
-        # Try WLTP first, then NEDC
         mpg = get_row_value(row, ['fuelEconomyWLTPCombinedMPG', 'fuelEconomyNEDCCombinedMPG'])
         if mpg and mpg != '0':
             ET.SubElement(item, "g:fuel_efficiency").text = f"{mpg} MPG"
@@ -112,18 +136,16 @@ def generate_xml(vehicles):
         full_title = f"{year} {make} {model} {derivative}"
         ET.SubElement(item, "g:title").text = full_title
         
-        # Rich description for humans
         desc_parts = [
             f"{full_title}.",
-            f"Trim: {trim}." if trim else "",
             f"Color: {color}.",
             f"Mileage: {mileage} miles.",
-            f"Transmission: {get_row_value(row, ['transmissionType'])}.",
-            f"Engine: {engine_size}L." if engine_size else "",
-            f"MPG: {mpg}." if mpg else "",
+            f"Body: {body_style}." if body_style else "",
+            f"Transmission: {transmission}." if transmission else "",
+            f"Fuel: {fuel_type}." if fuel_type else "",
+            f"Doors: {doors}." if doors else "",
             f"Available at {DEALER_NAME}."
         ]
-        # Clean up empty parts
         clean_desc = " ".join([p for p in desc_parts if p])
         ET.SubElement(item, "g:description").text = clean_desc
 
@@ -132,7 +154,8 @@ def generate_xml(vehicles):
         ET.SubElement(item, "g:link").text = link
         ET.SubElement(item, "g:link_template").text = f"{link}?store={{store_code}}"
 
-        photos_raw = get_row_value(row, ['photos', 'image_urls'])
+        # Added 'photosurl' to the list of keys to check
+        photos_raw = get_row_value(row, ['photos', 'image_urls', 'photosurl'])
         if photos_raw:
             delimiter = '|' if '|' in photos_raw else ','
             all_imgs = [clean_image_url(x) for x in photos_raw.split(delimiter) if x.strip()]
@@ -150,6 +173,7 @@ def generate_xml(vehicles):
         ET.SubElement(item, "g:color").text = color
         ET.SubElement(item, "g:year").text = year
         ET.SubElement(item, "g:mileage").text = f"{mileage} miles"
+        
         ET.SubElement(item, "g:condition").text = "used"
         ET.SubElement(item, "g:vehicle_type").text = "car"
         ET.SubElement(item, "g:google_product_category").text = GOOGLE_CATEGORY_ID
