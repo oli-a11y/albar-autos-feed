@@ -11,9 +11,7 @@ OUTPUT_FILE = "feed.xml"
 # CONSTANTS
 DEALER_NAME = "Albar Autos"
 DEALER_URL = "https://albarautos.co.uk"
-GOOGLE_CATEGORY_ID = "916" # This ID tells Google it is a "Car"
-
-# *** YOUR STORE CODE ***
+GOOGLE_CATEGORY_ID = "916" 
 STORE_CODE = "Albar"
 
 def clean_image_url(raw_url):
@@ -72,11 +70,10 @@ def generate_xml(vehicles):
 
         item = ET.SubElement(channel, "item")
         
-        # 1. ID
+        # --- CORE IDENTIFIERS ---
         veh_id = get_row_value(row, ['registration', 'vin', 'id'])
         ET.SubElement(item, "g:id").text = veh_id
 
-        # 2. Basic Info
         make = get_row_value(row, ['make'])
         model = get_row_value(row, ['model'])
         derivative = get_row_value(row, ['derivative'])
@@ -84,18 +81,57 @@ def generate_xml(vehicles):
         year = get_row_value(row, ['yearOfManufacture'])
         mileage = get_row_value(row, ['odometerReadingMiles'])
         
+        # --- NEW RICH ATTRIBUTES ---
+        # 1. Trim
+        trim = get_row_value(row, ['trim'])
+        if trim and trim.lower() != 'unlisted':
+            ET.SubElement(item, "g:trim").text = trim
+
+        # 2. Engine (Format: "1.2L")
+        engine_size = get_row_value(row, ['badgeEngineSizeLitres'])
+        if engine_size:
+            ET.SubElement(item, "g:engine").text = f"{engine_size}L"
+
+        # 3. Electric Range (Format: "200 miles")
+        elec_range = get_row_value(row, ['batteryRangeMiles'])
+        if elec_range and elec_range != '0':
+            ET.SubElement(item, "g:electric_range").text = f"{elec_range} miles"
+
+        # 4. Emissions Standard (e.g. "Euro 6")
+        emissions = get_row_value(row, ['emissionClass'])
+        if emissions:
+            ET.SubElement(item, "g:emissions_standard").text = emissions
+
+        # 5. Fuel Efficiency (Format: "55 MPG")
+        # Try WLTP first, then NEDC
+        mpg = get_row_value(row, ['fuelEconomyWLTPCombinedMPG', 'fuelEconomyNEDCCombinedMPG'])
+        if mpg and mpg != '0':
+            ET.SubElement(item, "g:fuel_efficiency").text = f"{mpg} MPG"
+
+        # --- TITLES & DESCRIPTION ---
         full_title = f"{year} {make} {model} {derivative}"
         ET.SubElement(item, "g:title").text = full_title
         
-        desc = f"{full_title}. {color}. {mileage} miles. {get_row_value(row, ['transmissionType'])}."
-        ET.SubElement(item, "g:description").text = desc
+        # Rich description for humans
+        desc_parts = [
+            f"{full_title}.",
+            f"Trim: {trim}." if trim else "",
+            f"Color: {color}.",
+            f"Mileage: {mileage} miles.",
+            f"Transmission: {get_row_value(row, ['transmissionType'])}.",
+            f"Engine: {engine_size}L." if engine_size else "",
+            f"MPG: {mpg}." if mpg else "",
+            f"Available at {DEALER_NAME}."
+        ]
+        # Clean up empty parts
+        clean_desc = " ".join([p for p in desc_parts if p])
+        ET.SubElement(item, "g:description").text = clean_desc
 
-        # 3. Links & Templates
+        # --- LINKS & IMAGES ---
         link = get_row_value(row, ['url', 'advert_url'])
         ET.SubElement(item, "g:link").text = link
         ET.SubElement(item, "g:link_template").text = f"{link}?store={{store_code}}"
 
-        # 4. Images
         photos_raw = get_row_value(row, ['photos', 'image_urls'])
         if photos_raw:
             delimiter = '|' if '|' in photos_raw else ','
@@ -107,26 +143,22 @@ def generate_xml(vehicles):
             if len(valid_imgs) > 1:
                 ET.SubElement(item, "g:additional_image_link").text = ",".join(valid_imgs[1:11])
 
-        # 5. Price
+        # --- STANDARD GOOGLE FIELDS ---
         ET.SubElement(item, "g:price").text = f"{price_raw} GBP"
-
-        # 6. Specifics
         ET.SubElement(item, "g:brand").text = make
         ET.SubElement(item, "g:model").text = model
         ET.SubElement(item, "g:color").text = color
         ET.SubElement(item, "g:year").text = year
         ET.SubElement(item, "g:mileage").text = f"{mileage} miles"
-        
         ET.SubElement(item, "g:condition").text = "used"
-        # REMOVED: g:vehicle_type (This caused the error)
+        ET.SubElement(item, "g:vehicle_type").text = "car"
         ET.SubElement(item, "g:google_product_category").text = GOOGLE_CATEGORY_ID
         
-        # 7. Vehicle Fulfillment
+        # Nested Fulfillment
         fulfillment = ET.SubElement(item, "g:vehicle_fulfillment")
         ET.SubElement(fulfillment, "g:option").text = "in_store"
         ET.SubElement(fulfillment, "g:store_code").text = STORE_CODE
 
-        # 8. Store Code
         ET.SubElement(item, "g:store_code").text = STORE_CODE
 
         count += 1
