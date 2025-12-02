@@ -27,7 +27,6 @@ def is_valid_image(url):
     """Checks if the URL looks like a real image file."""
     if not url: return False
     url_lower = url.lower()
-    # Must start with http and end with a valid extension
     if not url_lower.startswith("http"): return False
     if any(ext in url_lower for ext in ['.jpg', '.jpeg', '.png', '.webp']):
         return True
@@ -83,4 +82,64 @@ def generate_xml(vehicles):
         derivative = get_row_value(row, ['derivative'])
         color = get_row_value(row, ['colour'])
         year = get_row_value(row, ['yearOfManufacture'])
-        mileage = get_row_value(row, ['odometer
+        mileage = get_row_value(row, ['odometerReadingMiles'])
+        
+        full_title = f"{year} {make} {model} {derivative}"
+        ET.SubElement(item, "g:title").text = full_title
+        
+        desc = f"{full_title}. {color}. {mileage} miles. {get_row_value(row, ['transmissionType'])}."
+        ET.SubElement(item, "g:description").text = desc
+
+        # 3. Links & Templates
+        link = get_row_value(row, ['url', 'advert_url'])
+        ET.SubElement(item, "g:link").text = link
+        
+        # NOTE: The {{ }} syntax is required to print single curly braces in Python f-strings
+        ET.SubElement(item, "g:link_template").text = f"{link}?store={{store_code}}"
+
+        # 4. Images
+        photos_raw = get_row_value(row, ['photos', 'image_urls'])
+        if photos_raw:
+            delimiter = '|' if '|' in photos_raw else ','
+            all_imgs = [clean_image_url(x) for x in photos_raw.split(delimiter) if x.strip()]
+            
+            valid_imgs = [img for img in all_imgs if is_valid_image(img)]
+            
+            if len(valid_imgs) > 0:
+                ET.SubElement(item, "g:image_link").text = valid_imgs[0]
+            if len(valid_imgs) > 1:
+                ET.SubElement(item, "g:additional_image_link").text = ",".join(valid_imgs[1:11])
+
+        # 5. Price
+        ET.SubElement(item, "g:price").text = f"{price_raw} GBP"
+
+        # 6. Specifics
+        ET.SubElement(item, "g:brand").text = make
+        ET.SubElement(item, "g:model").text = model
+        ET.SubElement(item, "g:color").text = color
+        ET.SubElement(item, "g:year").text = year
+        ET.SubElement(item, "g:mileage").text = f"{mileage} miles"
+        
+        ET.SubElement(item, "g:condition").text = "used"
+        ET.SubElement(item, "g:vehicle_type").text = "car"
+        ET.SubElement(item, "g:google_product_category").text = GOOGLE_CATEGORY_ID
+        
+        # 7. Vehicle Fulfillment
+        fulfillment = ET.SubElement(item, "g:vehicle_fulfillment")
+        ET.SubElement(fulfillment, "g:option").text = "in_store"
+        ET.SubElement(fulfillment, "g:store_code").text = STORE_CODE
+
+        # 8. Store Code
+        ET.SubElement(item, "g:store_code").text = STORE_CODE
+
+        count += 1
+
+    xml_str = minidom.parseString(ET.tostring(rss)).toprettyxml(indent="  ")
+    with open(OUTPUT_FILE, "w") as f:
+        f.write(xml_str)
+    print(f"SUCCESS: Generated {OUTPUT_FILE} with {count} vehicles.")
+
+if __name__ == "__main__":
+    data = get_google_feed()
+    if data:
+        generate_xml(data)
