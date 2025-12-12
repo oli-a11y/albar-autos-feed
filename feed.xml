@@ -99,38 +99,6 @@
       <g:store_code>Albar</g:store_code>
     </item>
     <item>
-      <g:id>KK18OLN</g:id>
-      <g:body_style>Hatchback</g:body_style>
-      <g:transmission>Automatic</g:transmission>
-      <g:fuel_type>Petrol</g:fuel_type>
-      <g:drivetrain>FWD</g:drivetrain>
-      <g:doors>5</g:doors>
-      <g:trim>R-Design Nav Plus</g:trim>
-      <g:engine>1.5L</g:engine>
-      <g:emissions_standard>Euro 6</g:emissions_standard>
-      <g:fuel_efficiency>50.4 MPG</g:fuel_efficiency>
-      <g:title>2018 Volvo V40 1.5 T2 GPF R-Design Nav Plus Auto Euro 6 (s/s) 5dr</g:title>
-      <g:description>2018 Volvo V40 1.5 T2 GPF R-Design Nav Plus Auto Euro 6 (s/s) 5dr. Color: Silver. Mileage: 68266 miles. Body: Hatchback. Transmission: Automatic. Fuel: Petrol. Doors: 5. Available at Albar Autos.</g:description>
-      <g:link>https://albarautos.co.uk/car-details/volvo-v40-hatchback-2018-petrol-silver-automatic-202511258134996</g:link>
-      <g:link_template>https://albarautos.co.uk/car-details/volvo-v40-hatchback-2018-petrol-silver-automatic-202511258134996?store={store_code}</g:link_template>
-      <g:image_link>https://m.atcdn.co.uk/a/media/w1920/9179e3b54e424545ae301a17c5c87abf.jpg</g:image_link>
-      <g:additional_image_link>https://m.atcdn.co.uk/a/media/w1920/2ce1e2d73bbc4521b76ea6eec3cbf27f.jpg,https://m.atcdn.co.uk/a/media/w1920/c5e8d1d2eb454d59878ad67999411d55.jpg,https://m.atcdn.co.uk/a/media/w1920/252a771e0ab843f2a789636c6839b7c6.jpg,https://m.atcdn.co.uk/a/media/w1920/bf4b0fae7ec54bbd8cbe9b6102690910.jpg,https://m.atcdn.co.uk/a/media/w1920/2b9ab264f1a34b328c0274772b622082.jpg,https://m.atcdn.co.uk/a/media/w1920/5da05ec72d1a490a81c59185412ee724.jpg,https://m.atcdn.co.uk/a/media/w1920/1eb5af5fecc948949bd3b13e5a1370ad.jpg</g:additional_image_link>
-      <g:price>9995 GBP</g:price>
-      <g:brand>Volvo</g:brand>
-      <g:model>V40</g:model>
-      <g:color>Silver</g:color>
-      <g:year>2018</g:year>
-      <g:mileage>68266 miles</g:mileage>
-      <g:condition>used</g:condition>
-      <g:vehicle_type>car</g:vehicle_type>
-      <g:google_product_category>916</g:google_product_category>
-      <g:vehicle_fulfillment>
-        <g:option>in_store</g:option>
-        <g:store_code>Albar</g:store_code>
-      </g:vehicle_fulfillment>
-      <g:store_code>Albar</g:store_code>
-    </item>
-    <item>
       <g:id>DT18MPE</g:id>
       <g:body_style>Hatchback</g:body_style>
       <g:transmission>Manual</g:transmission>
@@ -258,6 +226,38 @@
       <g:store_code>Albar</g:store_code>
     </item>
     <item>
+      <g:id>LL66UYC</g:id>
+      <g:body_style>Coupe</g:body_style>
+      <g:transmission>Manual</g:transmission>
+      <g:fuel_type>Petrol</g:fuel_type>
+      <g:drivetrain>RWD</g:drivetrain>
+      <g:doors>2</g:doors>
+      <g:trim>Pro</g:trim>
+      <g:engine>2.0L</g:engine>
+      <g:emissions_standard>Euro 6</g:emissions_standard>
+      <g:fuel_efficiency>36.2 MPG</g:fuel_efficiency>
+      <g:title>2016 Toyota GT86 2.0 Boxer D-4S Pro Euro 6 2dr</g:title>
+      <g:description>2016 Toyota GT86 2.0 Boxer D-4S Pro Euro 6 2dr. Color: Red. Mileage: 48423 miles. Body: Coupe. Transmission: Manual. Fuel: Petrol. Doors: 2. Available at Albar Autos.</g:description>
+      <g:link>https://albarautos.co.uk/car-details/toyota-gt86-coupe-2016-petrol-red-manual-202512118535725</g:link>
+      <g:link_template>https://albarautos.co.uk/car-details/toyota-gt86-coupe-2016-petrol-red-manual-202512118535725?store={store_code}</g:link_template>
+      <g:image_link>https://m.atcdn.co.uk/a/media/w1920/3bce5e16692843fd8984e385e97a334c.jpg</g:image_link>
+      <g:additional_image_link>https://m.atcdn.co.uk/a/media/w1920/8efe4efa4e534d4490958953ee8e31a2.jpg,https://m.atcdn.co.uk/a/media/w1920/309aa299c15a49419ac5291c6cbd6e5d.jpg,https://m.atcdn.co.uk/a/media/w1920/0ef3c3a8e912484f9344e82c436eb1b0.jpg,https://m.atcdn.co.uk/a/media/w1920/85c59087135d4c55bae5055cd2c984be.jpg,https://m.atcdn.co.uk/a/media/w1920/7b6c5610648d493a9ab090ac1ef3d9b9.jpg,https://m.atcdn.co.uk/a/media/w1920/e83199ff0dab4851819e8db2bf2e5021.jpg,https://m.atcdn.co.uk/a/media/w1920/e4d5e261ce6445fca36f81e4f704694f.jpg,https://m.atcdn.co.uk/a/media/w1920/94146fd06da74e4eb2c8b1daaafe05bd.jpg,https://m.atcdn.co.uk/a/media/w1920/4dc51b7d715744649a5f101aaad03999.jpg</g:additional_image_link>
+      <g:price>17695 GBP</g:price>
+      <g:brand>Toyota</g:brand>
+      <g:model>GT86</g:model>
+      <g:color>Red</g:color>
+      <g:year>2016</g:year>
+      <g:mileage>48423 miles</g:mileage>
+      <g:condition>used</g:condition>
+      <g:vehicle_type>car</g:vehicle_type>
+      <g:google_product_category>916</g:google_product_category>
+      <g:vehicle_fulfillment>
+        <g:option>in_store</g:option>
+        <g:store_code>Albar</g:store_code>
+      </g:vehicle_fulfillment>
+      <g:store_code>Albar</g:store_code>
+    </item>
+    <item>
       <g:id>LX19HFW</g:id>
       <g:body_style>Convertible</g:body_style>
       <g:transmission>Manual</g:transmission>
@@ -279,6 +279,36 @@
       <g:color>Grey</g:color>
       <g:year>2019</g:year>
       <g:mileage>45500 miles</g:mileage>
+      <g:condition>used</g:condition>
+      <g:vehicle_type>car</g:vehicle_type>
+      <g:google_product_category>916</g:google_product_category>
+      <g:vehicle_fulfillment>
+        <g:option>in_store</g:option>
+        <g:store_code>Albar</g:store_code>
+      </g:vehicle_fulfillment>
+      <g:store_code>Albar</g:store_code>
+    </item>
+    <item>
+      <g:id>WP71OHF</g:id>
+      <g:body_style>Saloon</g:body_style>
+      <g:transmission>Automatic</g:transmission>
+      <g:fuel_type>Electric</g:fuel_type>
+      <g:drivetrain>4WD</g:drivetrain>
+      <g:doors>4</g:doors>
+      <g:trim>Long Range</g:trim>
+      <g:electric_range>389.0 miles</g:electric_range>
+      <g:title>2021 Tesla Model 3 (Dual Motor) Long Range Auto 4WDE 4dr</g:title>
+      <g:description>2021 Tesla Model 3 (Dual Motor) Long Range Auto 4WDE 4dr. Color: Grey. Mileage: 69264 miles. Body: Saloon. Transmission: Automatic. Fuel: Electric. Doors: 4. Available at Albar Autos.</g:description>
+      <g:link>https://albarautos.co.uk/car-details/tesla-model-3-saloon-2021-electric-grey-automatic-202512118535817</g:link>
+      <g:link_template>https://albarautos.co.uk/car-details/tesla-model-3-saloon-2021-electric-grey-automatic-202512118535817?store={store_code}</g:link_template>
+      <g:image_link>https://m.atcdn.co.uk/a/media/w1920/a0a0d4acd3644bc3bc69b14e63a2efd9.jpg</g:image_link>
+      <g:additional_image_link>https://m.atcdn.co.uk/a/media/w1920/279c9ccb2775477ba41a41b0ee742df6.jpg,https://m.atcdn.co.uk/a/media/w1920/15af4740bd49482dbcc0cfd5f55bfd92.jpg,https://m.atcdn.co.uk/a/media/w1920/29220e3b14bd4e8c802418e4a5171066.jpg,https://m.atcdn.co.uk/a/media/w1920/28aa240c64c348d1ac0f8d656088cb38.jpg,https://m.atcdn.co.uk/a/media/w1920/8eb564939e644bf69099cc6afdfafa56.jpg,https://m.atcdn.co.uk/a/media/w1920/1dbae7aafee843949b292e1cbb01c0f8.jpg,https://m.atcdn.co.uk/a/media/w1920/06b950de47c54c3f92a4f6f02d0a3395.jpg</g:additional_image_link>
+      <g:price>16995 GBP</g:price>
+      <g:brand>Tesla</g:brand>
+      <g:model>Model 3</g:model>
+      <g:color>Grey</g:color>
+      <g:year>2021</g:year>
+      <g:mileage>69264 miles</g:mileage>
       <g:condition>used</g:condition>
       <g:vehicle_type>car</g:vehicle_type>
       <g:google_product_category>916</g:google_product_category>
