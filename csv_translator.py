@@ -1,6 +1,7 @@
 import csv
 import requests
 import io
+import re # Added regex for smarter cleaning
 import xml.etree.ElementTree as ET
 from xml.dom import minidom
 
@@ -19,6 +20,8 @@ def clean_image_url(raw_url):
     if not raw_url: return ""
     clean = raw_url.strip()
     clean = clean.replace("{resize}", "w1920").replace("%7Bresize%7D", "w1920")
+    # Fix spaces in URLs which break XML
+    clean = clean.replace(" ", "%20") 
     return clean
 
 def is_valid_image(url):
@@ -26,9 +29,39 @@ def is_valid_image(url):
     if not url: return False
     url_lower = url.lower()
     if not url_lower.startswith("http"): return False
+    # Check if a valid extension exists SOMEWHERE in the url (ignoring query params)
     if any(ext in url_lower for ext in ['.jpg', '.jpeg', '.png', '.webp']):
         return True
     return False
+
+def clean_emissions(val):
+    """Normalizes 'Euro 6 (s/s)' to just 'Euro 6'."""
+    if not val: return None
+    val_lower = val.lower()
+    if "euro 6" in val_lower: return "Euro 6"
+    if "euro 5" in val_lower: return "Euro 5"
+    if "euro 4" in val_lower: return "Euro 4"
+    return None # If it's not strictly Euro X, don't send it to avoid error.
+
+def clean_engine(val):
+    """Ensures engine is a valid number > 0 and appends L."""
+    if not val: return None
+    try:
+        size = float(val)
+        if size > 0:
+            return f"{size}L"
+    except ValueError:
+        pass
+    return None
+
+def clean_drivetrain(dt_text):
+    """Maps verbose drivetrains to Google's preferred abbreviations."""
+    if not dt_text: return None
+    dt_lower = dt_text.lower()
+    if "front" in dt_lower: return "FWD"
+    if "rear" in dt_lower: return "RWD"
+    if "4x4" in dt_lower or "four" in dt_lower or "all" in dt_lower: return "4WD"
+    return None
 
 def get_row_value(row, possible_keys):
     """Helper to find a value even if keys vary."""
@@ -38,15 +71,6 @@ def get_row_value(row, possible_keys):
         if clean_key in normalized_row:
             return normalized_row[clean_key]
     return ""
-
-def clean_drivetrain(dt_text):
-    """Maps verbose drivetrains to Google's preferred abbreviations."""
-    if not dt_text: return ""
-    dt_lower = dt_text.lower()
-    if "front" in dt_lower: return "FWD"
-    if "rear" in dt_lower: return "RWD"
-    if "4x4" in dt_lower or "four" in dt_lower or "all" in dt_lower: return "4WD"
-    return dt_text
 
 def get_google_feed():
     print("Downloading CSV feed...")
@@ -90,50 +114,25 @@ def generate_xml(vehicles):
         year = get_row_value(row, ['yearOfManufacture'])
         mileage = get_row_value(row, ['odometerReadingMiles'])
         
-        # --- NEW ATTRIBUTES (BATCH 2) ---
+        # --- CLEANING & MAPPING ---
         body_style = get_row_value(row, ['bodyType'])
-        if body_style:
-            ET.SubElement(item, "g:body_style").text = body_style
-
         transmission = get_row_value(row, ['transmissionType'])
-        if transmission:
-            ET.SubElement(item, "g:transmission").text = transmission
-
         fuel_type = get_row_value(row, ['fuelType'])
-        if fuel_type:
-            ET.SubElement(item, "g:fuel_type").text = fuel_type
-
         drivetrain = clean_drivetrain(get_row_value(row, ['drivetrain']))
-        if drivetrain:
-            ET.SubElement(item, "g:drivetrain").text = drivetrain
-
         doors = get_row_value(row, ['doors'])
-        if doors:
-            ET.SubElement(item, "g:doors").text = doors
-
-        # --- PREVIOUS ATTRIBUTES (BATCH 1) ---
         trim = get_row_value(row, ['trim'])
-        if trim and trim.lower() != 'unlisted':
-            ET.SubElement(item, "g:trim").text = trim
-
-        engine_size = get_row_value(row, ['badgeEngineSizeLitres'])
-        if engine_size:
-            ET.SubElement(item, "g:engine").text = f"{engine_size}L"
+        
+        # Clean Engine & Emissions using new functions
+        engine_val = clean_engine(get_row_value(row, ['badgeEngineSizeLitres']))
+        emissions_val = clean_emissions(get_row_value(row, ['emissionClass']))
 
         elec_range = get_row_value(row, ['batteryRangeMiles'])
-        if elec_range and elec_range != '0':
-            ET.SubElement(item, "g:electric_range").text = f"{elec_range} miles"
-
-        emissions = get_row_value(row, ['emissionClass'])
-        if emissions:
-            ET.SubElement(item, "g:emissions_standard").text = emissions
-
         mpg = get_row_value(row, ['fuelEconomyWLTPCombinedMPG', 'fuelEconomyNEDCCombinedMPG'])
-        if mpg and mpg != '0':
-            ET.SubElement(item, "g:fuel_efficiency").text = f"{mpg} MPG"
 
         # --- TITLES & DESCRIPTION ---
         full_title = f"{year} {make} {model} {derivative}"
+        # Remove multiple spaces if any
+        full_title = " ".join(full_title.split())
         ET.SubElement(item, "g:title").text = full_title
         
         desc_parts = [
@@ -143,7 +142,7 @@ def generate_xml(vehicles):
             f"Body: {body_style}." if body_style else "",
             f"Transmission: {transmission}." if transmission else "",
             f"Fuel: {fuel_type}." if fuel_type else "",
-            f"Doors: {doors}." if doors else "",
+            f"Engine: {engine_val}." if engine_val else "",
             f"Available at {DEALER_NAME}."
         ]
         clean_desc = " ".join([p for p in desc_parts if p])
@@ -154,19 +153,21 @@ def generate_xml(vehicles):
         ET.SubElement(item, "g:link").text = link
         ET.SubElement(item, "g:link_template").text = f"{link}?store={{store_code}}"
 
-        # Added 'photosurl' to the list of keys to check
         photos_raw = get_row_value(row, ['photos', 'image_urls', 'photosurl'])
         if photos_raw:
             delimiter = '|' if '|' in photos_raw else ','
+            # Filter empty strings immediately
             all_imgs = [clean_image_url(x) for x in photos_raw.split(delimiter) if x.strip()]
+            # Apply strict validation
             valid_imgs = [img for img in all_imgs if is_valid_image(img)]
             
             if len(valid_imgs) > 0:
                 ET.SubElement(item, "g:image_link").text = valid_imgs[0]
             if len(valid_imgs) > 1:
+                # IMPORTANT: Join only the valid ones
                 ET.SubElement(item, "g:additional_image_link").text = ",".join(valid_imgs[1:11])
 
-        # --- STANDARD GOOGLE FIELDS ---
+        # --- GOOGLE FIELDS ---
         ET.SubElement(item, "g:price").text = f"{price_raw} GBP"
         ET.SubElement(item, "g:brand").text = make
         ET.SubElement(item, "g:model").text = model
@@ -174,11 +175,25 @@ def generate_xml(vehicles):
         ET.SubElement(item, "g:year").text = year
         ET.SubElement(item, "g:mileage").text = f"{mileage} miles"
         
+        # New Tags (Only add if valid)
+        if body_style: ET.SubElement(item, "g:body_style").text = body_style
+        if transmission: ET.SubElement(item, "g:transmission").text = transmission
+        if fuel_type: ET.SubElement(item, "g:fuel_type").text = fuel_type
+        if drivetrain: ET.SubElement(item, "g:drivetrain").text = drivetrain
+        if doors: ET.SubElement(item, "g:doors").text = doors
+        if trim and trim.lower() != 'unlisted': ET.SubElement(item, "g:trim").text = trim
+        
+        # Only add Engine/Emissions if they passed the cleaner
+        if engine_val: ET.SubElement(item, "g:engine").text = engine_val
+        if emissions_val: ET.SubElement(item, "g:emissions_standard").text = emissions_val
+        if elec_range and elec_range != '0': ET.SubElement(item, "g:electric_range").text = f"{elec_range} miles"
+        if mpg and mpg != '0': ET.SubElement(item, "g:fuel_efficiency").text = f"{mpg} MPG"
+
         ET.SubElement(item, "g:condition").text = "used"
         ET.SubElement(item, "g:vehicle_type").text = "car"
         ET.SubElement(item, "g:google_product_category").text = GOOGLE_CATEGORY_ID
         
-        # Nested Fulfillment
+        # Fulfillment
         fulfillment = ET.SubElement(item, "g:vehicle_fulfillment")
         ET.SubElement(fulfillment, "g:option").text = "in_store"
         ET.SubElement(fulfillment, "g:store_code").text = STORE_CODE
