@@ -163,6 +163,36 @@
       <g:store_code>Albar</g:store_code>
     </item>
     <item>
+      <g:id>GD21NFX</g:id>
+      <g:body_style>Saloon</g:body_style>
+      <g:transmission>Automatic</g:transmission>
+      <g:fuel_type>Electric</g:fuel_type>
+      <g:drivetrain>4WD</g:drivetrain>
+      <g:doors>4</g:doors>
+      <g:trim>Long Range</g:trim>
+      <g:electric_range>389.0 miles</g:electric_range>
+      <g:title>2021 Tesla Model 3 (Dual Motor) Long Range Auto 4WDE 4dr</g:title>
+      <g:description>2021 Tesla Model 3 (Dual Motor) Long Range Auto 4WDE 4dr. Color: Blue. Mileage: 38482 miles. Body: Saloon. Transmission: Automatic. Fuel: Electric. Doors: 4. Available at Albar Autos.</g:description>
+      <g:link>https://albarautos.co.uk/car-details/tesla-model-3-saloon-2021-electric-blue-automatic-202512128559651</g:link>
+      <g:link_template>https://albarautos.co.uk/car-details/tesla-model-3-saloon-2021-electric-blue-automatic-202512128559651?store={store_code}</g:link_template>
+      <g:image_link>https://m.atcdn.co.uk/a/media/w1920/729657ef1b7c477383c37d4875e516ac.jpg</g:image_link>
+      <g:additional_image_link>https://m.atcdn.co.uk/a/media/w1920/ab9d99d156c849ad8e474d29128b8755.jpg,https://m.atcdn.co.uk/a/media/w1920/e61f5950900942498b8072385be1db1f.jpg,https://m.atcdn.co.uk/a/media/w1920/abe98443e1b044c3a9fbd8daa97e475b.jpg,https://m.atcdn.co.uk/a/media/w1920/0114c72a2f0749dfaf8fb19b6b52017c.jpg,https://m.atcdn.co.uk/a/media/w1920/7f3c1353c48047f296592323615b4270.jpg,https://m.atcdn.co.uk/a/media/w1920/aad5b04b95b84139a8ba22f49875ac62.jpg,https://m.atcdn.co.uk/a/media/w1920/0a4022f524074e01883979bd5c1d7e61.jpg</g:additional_image_link>
+      <g:price>19595 GBP</g:price>
+      <g:brand>Tesla</g:brand>
+      <g:model>Model 3</g:model>
+      <g:color>Blue</g:color>
+      <g:year>2021</g:year>
+      <g:mileage>38482 miles</g:mileage>
+      <g:condition>used</g:condition>
+      <g:vehicle_type>car</g:vehicle_type>
+      <g:google_product_category>916</g:google_product_category>
+      <g:vehicle_fulfillment>
+        <g:option>in_store</g:option>
+        <g:store_code>Albar</g:store_code>
+      </g:vehicle_fulfillment>
+      <g:store_code>Albar</g:store_code>
+    </item>
+    <item>
       <g:id>KM72MKP</g:id>
       <g:body_style>Hatchback</g:body_style>
       <g:transmission>Manual</g:transmission>
