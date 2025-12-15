@@ -1,7 +1,7 @@
 import csv
 import requests
 import io
-import urllib.parse  # Added for safe URL encoding
+import urllib.parse
 import xml.etree.ElementTree as ET
 from xml.dom import minidom
 
@@ -25,9 +25,9 @@ def clean_image_url(raw_url):
     clean = clean.replace("{resize}", "w1920").replace("%7Bresize%7D", "w1920")
     
     # Safe Encoding: Turns "car photo.jpg" into "car%20photo.jpg"
-    # We split by '://' to avoid encoding the protocol (https://)
     if "://" in clean:
         parts = clean.split("://")
+        # Only encode the path, not the protocol
         return parts[0] + "://" + urllib.parse.quote(parts[1])
     return urllib.parse.quote(clean)
 
@@ -41,39 +41,26 @@ def is_valid_image(url):
     return False
 
 def map_emissions(val):
-    """
-    Maps 'Euro 6 (s/s)' -> 'euro6'
-    Matches the specific codes Google demands.
-    """
     if not val: return None
-    val_lower = val.lower().replace(" ", "") # remove spaces
-    
-    # Check for specific Google allowed values
+    val_lower = val.lower().replace(" ", "")
     if "euro6d-temp" in val_lower: return "euro6d-temp"
     if "euro6d" in val_lower: return "euro6d"
     if "euro6c" in val_lower: return "euro6c"
     if "euro6" in val_lower: return "euro6"
     if "euro5" in val_lower: return "euro5"
-    if "zero" in val_lower: return "zero emission" # Google code for electric
-    
+    if "zero" in val_lower: return "zero emission"
     return None
 
 def map_fuel_type(val):
-    """
-    Maps UK terms 'Petrol' -> Google US term 'gasoline'
-    """
     if not val: return None
     val_lower = val.lower()
-    
     if "petrol" in val_lower: return "gasoline"
     if "diesel" in val_lower: return "diesel"
     if "electric" in val_lower: return "electric"
     if "hybrid" in val_lower: return "hybrid"
-    
     return "other"
 
 def clean_engine(val):
-    """Ensures engine size is formatted correctly (e.g. 1.5L)."""
     if not val: return None
     try:
         size = float(val)
@@ -147,7 +134,6 @@ def generate_xml(vehicles):
         doors = get_row_value(row, ['doors'])
         trim = get_row_value(row, ['trim'])
         
-        # NEW MAPPERS
         fuel_type = map_fuel_type(get_row_value(row, ['fuelType']))
         emissions_val = map_emissions(get_row_value(row, ['emissionClass']))
         engine_val = clean_engine(get_row_value(row, ['badgeEngineSizeLitres']))
@@ -167,7 +153,7 @@ def generate_xml(vehicles):
             f"Mileage: {mileage} miles.",
             f"Body: {body_style}." if body_style else "",
             f"Transmission: {transmission}." if transmission else "",
-            f"Fuel: {fuel_type.title()}." if fuel_type else "", # Use Title case for display
+            f"Fuel: {fuel_type.title()}." if fuel_type else "",
             f"Engine: {engine_val}." if engine_val else "",
             f"Available at {DEALER_NAME}."
         ]
@@ -185,10 +171,16 @@ def generate_xml(vehicles):
             all_imgs = [clean_image_url(x) for x in photos_raw.split(delimiter) if x.strip()]
             valid_imgs = [img for img in all_imgs if is_valid_image(img)]
             
+            # 1. Main Image
             if len(valid_imgs) > 0:
                 ET.SubElement(item, "g:image_link").text = valid_imgs[0]
+            
+            # 2. Additional Images (FIXED LOOP)
+            # We loop through the remaining images and create a separate tag for EACH one.
             if len(valid_imgs) > 1:
-                ET.SubElement(item, "g:additional_image_link").text = ",".join(valid_imgs[1:11])
+                # Limit to 10 additional images max
+                for extra_img in valid_imgs[1:11]:
+                    ET.SubElement(item, "g:additional_image_link").text = extra_img
 
         # --- GOOGLE FIELDS ---
         ET.SubElement(item, "g:price").text = f"{price_raw} GBP"
@@ -204,7 +196,6 @@ def generate_xml(vehicles):
         if doors: ET.SubElement(item, "g:doors").text = doors
         if trim and trim.lower() != 'unlisted': ET.SubElement(item, "g:trim").text = trim
         
-        # Mapped Fields
         if fuel_type: ET.SubElement(item, "g:fuel_type").text = fuel_type
         if emissions_val: ET.SubElement(item, "g:emissions_standard").text = emissions_val
         if engine_val: ET.SubElement(item, "g:engine").text = engine_val
