@@ -44,6 +44,7 @@ def map_emissions(val):
     return None
 
 def map_fuel_type(val):
+    # Maps for the 'Robot' (Google Tags)
     if not val: return None
     val_lower = val.lower()
     if "petrol" in val_lower: return "gasoline"
@@ -52,7 +53,8 @@ def map_fuel_type(val):
     if "hybrid" in val_lower: return "hybrid"
     return "other"
 
-def clean_engine(val):
+def clean_engine_size(val):
+    # Keeps the '1.2L' format for the Description text
     if not val: return None
     try:
         size = float(val)
@@ -109,52 +111,62 @@ def generate_xml(vehicles):
 
         item = ET.SubElement(channel, "item")
         
-        # --- 1. PRIORITY FIELDS (ID, Availability, Quantity) ---
+        # --- 1. PRIORITY FIELDS ---
         veh_id = get_row_value(row, ['registration', 'vin', 'id'])
         ET.SubElement(item, "g:id").text = veh_id
-        
-        # FIX: Force Availability and Quantity at the top
         ET.SubElement(item, "g:availability").text = "in_stock"
         ET.SubElement(item, "g:quantity").text = "1" 
 
-        # --- 2. BASIC INFO ---
+        # --- 2. RAW DATA (For Description) ---
         make = get_row_value(row, ['make'])
         model = get_row_value(row, ['model'])
         derivative = get_row_value(row, ['derivative'])
-        color = get_row_value(row, ['colour'])
+        color_raw = get_row_value(row, ['colour'])
         year = get_row_value(row, ['yearOfManufacture'])
         mileage = get_row_value(row, ['odometerReadingMiles'])
+        fuel_raw = get_row_value(row, ['fuelType']) # Keep "Petrol" for description
+        trans_raw = get_row_value(row, ['transmissionType'])
+        body_raw = get_row_value(row, ['bodyType'])
+        engine_size_raw = clean_engine_size(get_row_value(row, ['badgeEngineSizeLitres']))
         
-        # --- 3. CLEANING & MAPPING ---
-        body_style = get_row_value(row, ['bodyType'])
-        transmission = get_row_value(row, ['transmissionType'])
-        doors = get_row_value(row, ['doors'])
-        trim = get_row_value(row, ['trim'])
-        
-        fuel_type = map_fuel_type(get_row_value(row, ['fuelType']))
-        emissions_val = map_emissions(get_row_value(row, ['emissionClass']))
-        engine_val = clean_engine(get_row_value(row, ['badgeEngineSizeLitres']))
-        drivetrain = clean_drivetrain(get_row_value(row, ['drivetrain']))
+        # --- 3. MAPPED DATA (For Google Tags) ---
+        fuel_tag = map_fuel_type(fuel_raw) # Converts to "gasoline"
+        emissions_tag = map_emissions(get_row_value(row, ['emissionClass']))
+        drivetrain_tag = clean_drivetrain(get_row_value(row, ['drivetrain']))
         elec_range = get_row_value(row, ['batteryRangeMiles'])
-        mpg = get_row_value(row, ['fuelEconomyWLTPCombinedMPG', 'fuelEconomyNEDCCombinedMPG'])
+        trim_tag = get_row_value(row, ['trim'])
 
-        # --- 4. TITLES & DESCRIPTION ---
+        # --- 4. TITLES & DESCRIPTION (The Tidy Up) ---
         full_title = f"{year} {make} {model} {derivative}"
         full_title = " ".join(full_title.split())
         ET.SubElement(item, "g:title").text = full_title
         
-        desc_parts = [
-            f"{full_title}.",
-            f"Color: {color}.",
-            f"Mileage: {mileage} miles.",
-            f"Body: {body_style}." if body_style else "",
-            f"Transmission: {transmission}." if transmission else "",
-            f"Fuel: {fuel_type.title()}." if fuel_type else "",
-            f"Engine: {engine_val}." if engine_val else "",
-            f"Available at {DEALER_NAME}."
-        ]
-        clean_desc = " ".join([p for p in desc_parts if p])
-        ET.SubElement(item, "g:description").text = clean_desc
+        # Professional Description Builder
+        # Example: "2018 Fiat 500. Finished in stunning Black."
+        desc_sentences = [f"{full_title}."]
+        
+        if color_raw:
+            desc_sentences.append(f"Finished in stunning {color_raw}.")
+            
+        # Example: "Powered by a 1.2L Petrol engine with Manual transmission."
+        powertrain_parts = []
+        if engine_size_raw: powertrain_parts.append(f"{engine_size_raw}")
+        if fuel_raw: powertrain_parts.append(f"{fuel_raw}")
+        
+        powertrain_str = " ".join(powertrain_parts)
+        if powertrain_str and trans_raw:
+            desc_sentences.append(f"Powered by a {powertrain_str} engine with {trans_raw} transmission.")
+        elif powertrain_str:
+            desc_sentences.append(f"Powered by a {powertrain_str} engine.")
+            
+        # Example: "12000 miles. Euro 6 emissions."
+        if mileage: desc_sentences.append(f"{mileage} miles.")
+        if emissions_tag: desc_sentences.append(f"Emissions: {get_row_value(row, ['emissionClass'])}.") # Use raw name for humans
+        if body_raw: desc_sentences.append(f"Body style: {body_raw}.")
+        
+        desc_sentences.append(f"Available immediately at {DEALER_NAME}.")
+        
+        ET.SubElement(item, "g:description").text = " ".join(desc_sentences)
 
         # --- 5. LINKS & IMAGES ---
         link = get_row_value(row, ['url', 'advert_url'])
@@ -169,7 +181,6 @@ def generate_xml(vehicles):
             
             if len(valid_imgs) > 0:
                 ET.SubElement(item, "g:image_link").text = valid_imgs[0]
-            
             if len(valid_imgs) > 1:
                 for extra_img in valid_imgs[1:11]:
                     ET.SubElement(item, "g:additional_image_link").text = extra_img
@@ -178,22 +189,24 @@ def generate_xml(vehicles):
         ET.SubElement(item, "g:price").text = f"{price_raw} GBP"
         ET.SubElement(item, "g:brand").text = make
         ET.SubElement(item, "g:model").text = model
-        ET.SubElement(item, "g:color").text = color
+        ET.SubElement(item, "g:color").text = color_raw
         ET.SubElement(item, "g:year").text = year
         ET.SubElement(item, "g:mileage").text = f"{mileage} miles"
         
-        if body_style: ET.SubElement(item, "g:body_style").text = body_style
-        if transmission: ET.SubElement(item, "g:transmission").text = transmission
-        if drivetrain: ET.SubElement(item, "g:drivetrain").text = drivetrain
-        if doors: ET.SubElement(item, "g:doors").text = doors
-        if trim and trim.lower() != 'unlisted': ET.SubElement(item, "g:trim").text = trim
+        # --- FIX: MAP ENGINE TAG TO FUEL TYPE ---
+        # User requested: Google expects 'gasoline', 'diesel' etc in the engine field here.
+        if fuel_tag: 
+            ET.SubElement(item, "g:engine").text = fuel_tag
         
-        if fuel_type: ET.SubElement(item, "g:fuel_type").text = fuel_type
-        if emissions_val: ET.SubElement(item, "g:emissions_standard").text = emissions_val
-        if engine_val: ET.SubElement(item, "g:engine").text = engine_val
-
+        if fuel_tag: ET.SubElement(item, "g:fuel_type").text = fuel_tag
+        if emissions_tag: ET.SubElement(item, "g:emissions_standard").text = emissions_tag
+        
+        # Other Tags
+        if body_raw: ET.SubElement(item, "g:body_style").text = body_raw
+        if trans_raw: ET.SubElement(item, "g:transmission").text = trans_raw
+        if drivetrain_tag: ET.SubElement(item, "g:drivetrain").text = drivetrain_tag
+        if trim_tag and trim_tag.lower() != 'unlisted': ET.SubElement(item, "g:trim").text = trim_tag
         if elec_range and elec_range != '0': ET.SubElement(item, "g:electric_range").text = f"{elec_range} miles"
-        if mpg and mpg != '0': ET.SubElement(item, "g:fuel_efficiency").text = f"{mpg} MPG"
 
         ET.SubElement(item, "g:condition").text = "used"
         ET.SubElement(item, "g:vehicle_type").text = "car"
