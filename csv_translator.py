@@ -27,7 +27,6 @@ def clean_image_url(raw_url):
     # Safe Encoding: Turns "car photo.jpg" into "car%20photo.jpg"
     if "://" in clean:
         parts = clean.split("://")
-        # Only encode the path, not the protocol
         return parts[0] + "://" + urllib.parse.quote(parts[1])
     return urllib.parse.quote(clean)
 
@@ -137,7 +136,6 @@ def generate_xml(vehicles):
         fuel_type = map_fuel_type(get_row_value(row, ['fuelType']))
         emissions_val = map_emissions(get_row_value(row, ['emissionClass']))
         engine_val = clean_engine(get_row_value(row, ['badgeEngineSizeLitres']))
-        
         drivetrain = clean_drivetrain(get_row_value(row, ['drivetrain']))
         elec_range = get_row_value(row, ['batteryRangeMiles'])
         mpg = get_row_value(row, ['fuelEconomyWLTPCombinedMPG', 'fuelEconomyNEDCCombinedMPG'])
@@ -175,10 +173,8 @@ def generate_xml(vehicles):
             if len(valid_imgs) > 0:
                 ET.SubElement(item, "g:image_link").text = valid_imgs[0]
             
-            # 2. Additional Images (FIXED LOOP)
-            # We loop through the remaining images and create a separate tag for EACH one.
+            # 2. Additional Images (Loop)
             if len(valid_imgs) > 1:
-                # Limit to 10 additional images max
                 for extra_img in valid_imgs[1:11]:
                     ET.SubElement(item, "g:additional_image_link").text = extra_img
 
@@ -190,6 +186,9 @@ def generate_xml(vehicles):
         ET.SubElement(item, "g:year").text = year
         ET.SubElement(item, "g:mileage").text = f"{mileage} miles"
         
+        # --- NEW: AVAILABILITY (The Fix) ---
+        ET.SubElement(item, "g:availability").text = "in_stock"
+
         if body_style: ET.SubElement(item, "g:body_style").text = body_style
         if transmission: ET.SubElement(item, "g:transmission").text = transmission
         if drivetrain: ET.SubElement(item, "g:drivetrain").text = drivetrain
