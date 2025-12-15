@@ -16,22 +16,15 @@ GOOGLE_CATEGORY_ID = "916"
 STORE_CODE = "Albar"
 
 def clean_image_url(raw_url):
-    """
-    1. Replaces {resize} with w1920.
-    2. Encodes invalid characters (like spaces) for XML safety.
-    """
     if not raw_url: return ""
     clean = raw_url.strip()
     clean = clean.replace("{resize}", "w1920").replace("%7Bresize%7D", "w1920")
-    
-    # Safe Encoding: Turns "car photo.jpg" into "car%20photo.jpg"
     if "://" in clean:
         parts = clean.split("://")
         return parts[0] + "://" + urllib.parse.quote(parts[1])
     return urllib.parse.quote(clean)
 
 def is_valid_image(url):
-    """Strict check for image extensions."""
     if not url: return False
     url_lower = url.lower()
     if not url_lower.startswith("http"): return False
@@ -116,10 +109,15 @@ def generate_xml(vehicles):
 
         item = ET.SubElement(channel, "item")
         
-        # --- CORE IDENTIFIERS ---
+        # --- 1. PRIORITY FIELDS (ID, Availability, Quantity) ---
         veh_id = get_row_value(row, ['registration', 'vin', 'id'])
         ET.SubElement(item, "g:id").text = veh_id
+        
+        # FIX: Force Availability and Quantity at the top
+        ET.SubElement(item, "g:availability").text = "in_stock"
+        ET.SubElement(item, "g:quantity").text = "1" 
 
+        # --- 2. BASIC INFO ---
         make = get_row_value(row, ['make'])
         model = get_row_value(row, ['model'])
         derivative = get_row_value(row, ['derivative'])
@@ -127,7 +125,7 @@ def generate_xml(vehicles):
         year = get_row_value(row, ['yearOfManufacture'])
         mileage = get_row_value(row, ['odometerReadingMiles'])
         
-        # --- CLEANING & MAPPING ---
+        # --- 3. CLEANING & MAPPING ---
         body_style = get_row_value(row, ['bodyType'])
         transmission = get_row_value(row, ['transmissionType'])
         doors = get_row_value(row, ['doors'])
@@ -140,7 +138,7 @@ def generate_xml(vehicles):
         elec_range = get_row_value(row, ['batteryRangeMiles'])
         mpg = get_row_value(row, ['fuelEconomyWLTPCombinedMPG', 'fuelEconomyNEDCCombinedMPG'])
 
-        # --- TITLES & DESCRIPTION ---
+        # --- 4. TITLES & DESCRIPTION ---
         full_title = f"{year} {make} {model} {derivative}"
         full_title = " ".join(full_title.split())
         ET.SubElement(item, "g:title").text = full_title
@@ -158,7 +156,7 @@ def generate_xml(vehicles):
         clean_desc = " ".join([p for p in desc_parts if p])
         ET.SubElement(item, "g:description").text = clean_desc
 
-        # --- LINKS & IMAGES ---
+        # --- 5. LINKS & IMAGES ---
         link = get_row_value(row, ['url', 'advert_url'])
         ET.SubElement(item, "g:link").text = link
         ET.SubElement(item, "g:link_template").text = f"{link}?store={{store_code}}"
@@ -169,16 +167,14 @@ def generate_xml(vehicles):
             all_imgs = [clean_image_url(x) for x in photos_raw.split(delimiter) if x.strip()]
             valid_imgs = [img for img in all_imgs if is_valid_image(img)]
             
-            # 1. Main Image
             if len(valid_imgs) > 0:
                 ET.SubElement(item, "g:image_link").text = valid_imgs[0]
             
-            # 2. Additional Images (Loop)
             if len(valid_imgs) > 1:
                 for extra_img in valid_imgs[1:11]:
                     ET.SubElement(item, "g:additional_image_link").text = extra_img
 
-        # --- GOOGLE FIELDS ---
+        # --- 6. GOOGLE FIELDS ---
         ET.SubElement(item, "g:price").text = f"{price_raw} GBP"
         ET.SubElement(item, "g:brand").text = make
         ET.SubElement(item, "g:model").text = model
@@ -186,9 +182,6 @@ def generate_xml(vehicles):
         ET.SubElement(item, "g:year").text = year
         ET.SubElement(item, "g:mileage").text = f"{mileage} miles"
         
-        # --- NEW: AVAILABILITY (The Fix) ---
-        ET.SubElement(item, "g:availability").text = "in_stock"
-
         if body_style: ET.SubElement(item, "g:body_style").text = body_style
         if transmission: ET.SubElement(item, "g:transmission").text = transmission
         if drivetrain: ET.SubElement(item, "g:drivetrain").text = drivetrain
