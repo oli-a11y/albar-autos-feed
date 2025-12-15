@@ -2,6 +2,7 @@ import csv
 import requests
 import io
 import urllib.parse
+import random  # NEW: Imported for random variations
 import xml.etree.ElementTree as ET
 from xml.dom import minidom
 
@@ -44,7 +45,6 @@ def map_emissions(val):
     return None
 
 def map_fuel_type(val):
-    # Maps for the 'Robot' (Google Tags)
     if not val: return None
     val_lower = val.lower()
     if "petrol" in val_lower: return "gasoline"
@@ -54,7 +54,7 @@ def map_fuel_type(val):
     return "other"
 
 def clean_engine_size(val):
-    # Keeps the '1.2L' format for the Description text
+    # Keeps '1.2L' format for the Description text
     if not val: return None
     try:
         size = float(val)
@@ -104,6 +104,25 @@ def generate_xml(vehicles):
     ET.SubElement(channel, "link").text = DEALER_URL
     ET.SubElement(channel, "description").text = f"Vehicle Feed for {DEALER_NAME}"
 
+    # --- CREATIVE PHRASE BANKS ---
+    color_adjectives = [
+        "stunning", "beautiful", "striking", "gleaming", "immaculate", 
+        "eye-catching", "pristine", "classic", "gorgeous"
+    ]
+    color_intros = [
+        "Finished in", "Presented in", "Looks fantastic in", 
+        "Exterior finished in", "Dressed in"
+    ]
+    intro_phrases = [
+        "We are delighted to offer this", "Check out this", 
+        "New arrival:", "Just arrived:", "Here we have a", 
+        "Now available at Albar Autos:"
+    ]
+    engine_phrases = [
+        "Powered by a", "Driven by a", "Features a reliable", 
+        "Under the bonnet is a", "Equipped with a"
+    ]
+
     count = 0
     for row in vehicles:
         price_raw = get_row_value(row, ['suppliedPrice', 'price', 'retail_price'])
@@ -117,52 +136,59 @@ def generate_xml(vehicles):
         ET.SubElement(item, "g:availability").text = "in_stock"
         ET.SubElement(item, "g:quantity").text = "1" 
 
-        # --- 2. RAW DATA (For Description) ---
+        # --- 2. RAW DATA ---
         make = get_row_value(row, ['make'])
         model = get_row_value(row, ['model'])
         derivative = get_row_value(row, ['derivative'])
         color_raw = get_row_value(row, ['colour'])
         year = get_row_value(row, ['yearOfManufacture'])
         mileage = get_row_value(row, ['odometerReadingMiles'])
-        fuel_raw = get_row_value(row, ['fuelType']) # Keep "Petrol" for description
+        fuel_raw = get_row_value(row, ['fuelType']) 
         trans_raw = get_row_value(row, ['transmissionType'])
         body_raw = get_row_value(row, ['bodyType'])
         engine_size_raw = clean_engine_size(get_row_value(row, ['badgeEngineSizeLitres']))
         
-        # --- 3. MAPPED DATA (For Google Tags) ---
-        fuel_tag = map_fuel_type(fuel_raw) # Converts to "gasoline"
+        # --- 3. MAPPED DATA ---
+        fuel_tag = map_fuel_type(fuel_raw) 
         emissions_tag = map_emissions(get_row_value(row, ['emissionClass']))
         drivetrain_tag = clean_drivetrain(get_row_value(row, ['drivetrain']))
         elec_range = get_row_value(row, ['batteryRangeMiles'])
         trim_tag = get_row_value(row, ['trim'])
 
-        # --- 4. TITLES & DESCRIPTION (The Tidy Up) ---
+        # --- 4. CREATIVE DESCRIPTION GENERATOR ---
         full_title = f"{year} {make} {model} {derivative}"
         full_title = " ".join(full_title.split())
         ET.SubElement(item, "g:title").text = full_title
         
-        # Professional Description Builder
-        # Example: "2018 Fiat 500. Finished in stunning Black."
-        desc_sentences = [f"{full_title}."]
+        # A. Pick random phrases for this car
+        intro_choice = random.choice(intro_phrases)
+        adj_choice = random.choice(color_adjectives)
+        color_intro_choice = random.choice(color_intros)
+        engine_intro_choice = random.choice(engine_phrases)
+        
+        # B. Build the sentence list
+        desc_sentences = [f"{intro_choice} {full_title}."]
         
         if color_raw:
-            desc_sentences.append(f"Finished in stunning {color_raw}.")
+            # Result: "Presented in stunning Black." or "Looks fantastic in Black."
+            desc_sentences.append(f"{color_intro_choice} {adj_choice} {color_raw}.")
             
-        # Example: "Powered by a 1.2L Petrol engine with Manual transmission."
         powertrain_parts = []
         if engine_size_raw: powertrain_parts.append(f"{engine_size_raw}")
         if fuel_raw: powertrain_parts.append(f"{fuel_raw}")
         
         powertrain_str = " ".join(powertrain_parts)
-        if powertrain_str and trans_raw:
-            desc_sentences.append(f"Powered by a {powertrain_str} engine with {trans_raw} transmission.")
-        elif powertrain_str:
-            desc_sentences.append(f"Powered by a {powertrain_str} engine.")
+        if powertrain_str:
+            # Result: "Driven by a 1.2L Petrol engine..."
+            sentence = f"{engine_intro_choice} {powertrain_str} engine"
+            if trans_raw:
+                sentence += f" with {trans_raw} transmission."
+            else:
+                sentence += "."
+            desc_sentences.append(sentence)
             
-        # Example: "12000 miles. Euro 6 emissions."
-        if mileage: desc_sentences.append(f"{mileage} miles.")
-        if emissions_tag: desc_sentences.append(f"Emissions: {get_row_value(row, ['emissionClass'])}.") # Use raw name for humans
-        if body_raw: desc_sentences.append(f"Body style: {body_raw}.")
+        if mileage: desc_sentences.append(f"Has covered {mileage} miles.")
+        if emissions_tag: desc_sentences.append(f"Emissions: {get_row_value(row, ['emissionClass'])}.") 
         
         desc_sentences.append(f"Available immediately at {DEALER_NAME}.")
         
@@ -193,15 +219,12 @@ def generate_xml(vehicles):
         ET.SubElement(item, "g:year").text = year
         ET.SubElement(item, "g:mileage").text = f"{mileage} miles"
         
-        # --- FIX: MAP ENGINE TAG TO FUEL TYPE ---
-        # User requested: Google expects 'gasoline', 'diesel' etc in the engine field here.
-        if fuel_tag: 
-            ET.SubElement(item, "g:engine").text = fuel_tag
+        # Engine Tag = Fuel Type (Google Requirement)
+        if fuel_tag: ET.SubElement(item, "g:engine").text = fuel_tag
         
         if fuel_tag: ET.SubElement(item, "g:fuel_type").text = fuel_tag
         if emissions_tag: ET.SubElement(item, "g:emissions_standard").text = emissions_tag
         
-        # Other Tags
         if body_raw: ET.SubElement(item, "g:body_style").text = body_raw
         if trans_raw: ET.SubElement(item, "g:transmission").text = trans_raw
         if drivetrain_tag: ET.SubElement(item, "g:drivetrain").text = drivetrain_tag
